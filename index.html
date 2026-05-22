@@ -587,6 +587,16 @@
     color: var(--candle-soft);
   }
 
+  /* Crew block: allow long, comma-separated name lists to wrap gracefully */
+  .cast-list.crew .role { align-items: flex-start; }
+  .cast-list.crew .role-name { padding-top: 0.05em; }
+  .cast-list.crew .actor-name {
+    white-space: normal;
+    line-height: 1.5;
+    max-width: 62%;
+  }
+  .cast-list.crew .dots { align-self: flex-start; transform: translateY(0.65em); }
+
   /* Floating nav once programme is up */
   .nav {
     position: fixed; top: max(0.8rem, env(safe-area-inset-top));
@@ -710,32 +720,36 @@
       <span class="flank"></span>
     </h3>
     <ul class="cast-list" id="cast-list">
-      <li class="role"><span class="role-name">Macbeth</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Lady Macbeth</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Banquo</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">King Duncan</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Macduff</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Lady Macduff</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Malcolm</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Donalbain</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Fleance</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role witch"><span class="role-name">First Witch</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role witch"><span class="role-name">Second Witch</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role witch"><span class="role-name">Third Witch</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Hecate</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Ross</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Lennox</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Porter</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Doctor</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Gentlewoman</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Captain</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Seyton</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Macduff's Son</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">First Murderer</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Second Murderer</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Old Siward</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Young Siward</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Ensemble</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
+      <li class="role"><span class="role-name">Macbeth</span><span class="dots"></span><span class="actor-name">Kanav Vig</span></li>
+      <li class="role"><span class="role-name">Lady Macbeth</span><span class="dots"></span><span class="actor-name">Shivranjini Chaturvedi</span></li>
+      <li class="role"><span class="role-name">King Duncan</span><span class="dots"></span><span class="actor-name">Eunyul Ko</span></li>
+      <li class="role"><span class="role-name">Malcolm</span><span class="dots"></span><span class="actor-name">Adhiraaj Mittal</span></li>
+      <li class="role"><span class="role-name">Donalbain</span><span class="dots"></span><span class="actor-name">Zorawar Guri</span></li>
+      <li class="role"><span class="role-name">Banquo</span><span class="dots"></span><span class="actor-name">Vihaan Nagpal</span></li>
+      <li class="role"><span class="role-name">Fleance <em>&amp; Doctor</em></span><span class="dots"></span><span class="actor-name">Avish Juneja</span></li>
+      <li class="role"><span class="role-name">Macduff</span><span class="dots"></span><span class="actor-name">Arnav Jain</span></li>
+      <li class="role"><span class="role-name">Lady Macduff</span><span class="dots"></span><span class="actor-name">Mischa Nanki Singh</span></li>
+      <li class="role"><span class="role-name">Macduff's Son</span><span class="dots"></span><span class="actor-name">Abir Rudra</span></li>
+      <li class="role"><span class="role-name">Ross</span><span class="dots"></span><span class="actor-name">Ayaan Jain</span></li>
+      <li class="role"><span class="role-name">Lennox</span><span class="dots"></span><span class="actor-name">Kian Bhasin</span></li>
+      <li class="role"><span class="role-name">Captain, Menteith, Angus &amp; Seyton</span><span class="dots"></span><span class="actor-name">Kayaan Goel</span></li>
+      <li class="role"><span class="role-name">Old Man &amp; Siward</span><span class="dots"></span><span class="actor-name">Raaghav Mayur Kumar</span></li>
+      <li class="role"><span class="role-name">Young Siward</span><span class="dots"></span><span class="actor-name">Yohaan Israni</span></li>
+      <li class="role"><span class="role-name">Gentlewoman</span><span class="dots"></span><span class="actor-name">Rehnuma Ramchandani</span></li>
+      <li class="role"><span class="role-name">First Murderer</span><span class="dots"></span><span class="actor-name">Jai Vardhan Gupta</span></li>
+      <li class="role"><span class="role-name">Second Murderer</span><span class="dots"></span><span class="actor-name">Ruveer Behl</span></li>
+      <li class="role"><span class="role-name">Hecate</span><span class="dots"></span><span class="actor-name">Amvi Tripathi</span></li>
+      <li class="role witch"><span class="role-name">First Witch</span><span class="dots"></span><span class="actor-name">Meher Balsara</span></li>
+      <li class="role witch"><span class="role-name">Second Witch</span><span class="dots"></span><span class="actor-name">Meher Aaliia Anand</span></li>
+      <li class="role witch"><span class="role-name">Third Witch</span><span class="dots"></span><span class="actor-name">Mirabelle Wadhwani</span></li>
+      <li class="role"><span class="role-name">First Apparition</span><span class="dots"></span><span class="actor-name">Aarna Batra</span></li>
+      <li class="role"><span class="role-name">Second Apparition</span><span class="dots"></span><span class="actor-name">Amani Prasad</span></li>
+      <li class="role"><span class="role-name">Third Apparition</span><span class="dots"></span><span class="actor-name">Ariana Abi Burman</span></li>
+      <li class="role"><span class="role-name">Messenger <em>Act III</em></span><span class="dots"></span><span class="actor-name">Sahira Bhagchadka</span></li>
+      <li class="role"><span class="role-name">Messenger <em>Act V</em></span><span class="dots"></span><span class="actor-name">India Karan Vadehra</span></li>
+      <li class="role"><span class="role-name">Servant <em>Act III</em></span><span class="dots"></span><span class="actor-name">Cyra Malik</span></li>
+      <li class="role"><span class="role-name">Attendant &amp; Servant</span><span class="dots"></span><span class="actor-name">Saranya Ag</span></li>
+      <li class="role"><span class="role-name">Hera</span><span class="dots"></span><span class="actor-name">Samaira Wadhwa</span></li>
     </ul>
   </div>
 
@@ -746,24 +760,17 @@
       <span class="glyph">&#8224;</span>
       <span class="flank"></span>
     </h3>
-    <ul class="cast-list" id="crew-list">
-      <li class="role"><span class="role-name">Director</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Assistant Director</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Producer</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Stage Manager</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Assistant Stage Manager</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Set Design</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Lighting Design</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Sound Design</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Costume Design</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Hair &amp; Makeup</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Props</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Fight Choreography</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Lighting Operation</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Sound Operation</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Programme Design</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Publicity</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
-      <li class="role"><span class="role-name">Front of House</span><span class="dots"></span><span class="actor-name placeholder">—</span></li>
+    <ul class="cast-list crew" id="crew-list">
+      <li class="role"><span class="role-name">Master of Ceremonies</span><span class="dots"></span><span class="actor-name">Jackson Sonny Robin Barrett, Yurim Choi</span></li>
+      <li class="role"><span class="role-name">Backstage — Stage Left</span><span class="dots"></span><span class="actor-name">Amrita Advani Ushnisha Tarr, Jackson Sonny Robin Barrett, Minki Cho, Lehzareen Rana</span></li>
+      <li class="role"><span class="role-name">Backstage — Stage Right</span><span class="dots"></span><span class="actor-name">Yurim Choi, Young Hee Cha, Ryann Issar</span></li>
+      <li class="role"><span class="role-name">Backstage — Wings</span><span class="dots"></span><span class="actor-name">Myrrah Malhotra</span></li>
+      <li class="role"><span class="role-name">Props</span><span class="dots"></span><span class="actor-name">Amrita Advani Ushnisha Tarr, Zunairah Hasan, Sara Kar, Inayat Sood</span></li>
+      <li class="role"><span class="role-name">Costume</span><span class="dots"></span><span class="actor-name">Amrita Advani Ushnisha Tarr, Samara Mehra, Raha Chawla Sahni, Vanya Crystal Sharma</span></li>
+      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Witches</em></span><span class="dots"></span><span class="actor-name">Divisha Gupta, Amira Mohamed</span></li>
+      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Boys &amp; Ghosts</em></span><span class="dots"></span><span class="actor-name">Cherisha Agrawal, Kyra Datta, Natasha Nath, Ananya Parshotam, Vanya Crystal Sharma</span></li>
+      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Girls</em></span><span class="dots"></span><span class="actor-name">Aliana Maria Hassan, Adyashree Kathuria, Samara Mehra, Raha Chawla Sahni</span></li>
+      <li class="role"><span class="role-name">Programme Design</span><span class="dots"></span><span class="actor-name">Reyansh Gupta</span></li>
     </ul>
   </div>
 
