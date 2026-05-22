@@ -582,9 +582,26 @@
   }
 
   /* Subtle italic styling for the witches — they are different */
-  .role.witch .role-name {
+  .role.witch .role-name,
+  .role.supernatural .role-name {
     font-style: italic;
     color: var(--candle-soft);
+  }
+
+  /* Lead roles — Macbeth & Lady Macbeth carry the play */
+  .role.lead .role-name {
+    font-weight: 600;
+    font-size: 1.08em;
+    color: var(--candle-bright);
+    text-shadow: 0 0 14px rgba(184, 36, 47, 0.25);
+  }
+  .role.lead .actor-name {
+    color: var(--bone);
+    font-weight: 500;
+  }
+  .role.lead {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
   }
 
   /* Crew block: allow long, comma-separated name lists to wrap gracefully */
@@ -597,18 +614,24 @@
   }
   .cast-list.crew .dots { align-self: flex-start; transform: translateY(0.65em); }
 
+  @media (max-width: 480px) {
+    .cast-list.crew .actor-name { max-width: 58%; font-size: 0.86rem; }
+    .cast-list.crew .role-name { font-size: 0.98rem; }
+  }
+
   /* Floating nav once programme is up */
   .nav {
     position: fixed; top: max(0.8rem, env(safe-area-inset-top));
     left: 50%; transform: translateX(-50%) translateY(-160%);
     z-index: 20;
     display: flex; gap: 0.6rem; align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.75rem 0.5rem 1rem;
     background: rgba(10, 7, 8, 0.78);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(201, 169, 97, 0.25);
     border-radius: 999px;
     transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    max-width: calc(100vw - 1.5rem);
   }
   .nav.show { transform: translateX(-50%) translateY(0); }
   .nav .title {
@@ -617,6 +640,40 @@
     color: var(--candle-soft);
     white-space: nowrap;
   }
+  .nav .sep {
+    width: 1px; height: 14px;
+    background: rgba(201, 169, 97, 0.28);
+    margin: 0 0.15rem;
+  }
+  .nav-links {
+    display: flex; gap: 0.35rem; align-items: center;
+  }
+  .nav a {
+    color: var(--candle-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav a:hover, .nav a:focus-visible {
+    color: var(--candle-bright);
+    background: rgba(201, 169, 97, 0.08);
+    outline: none;
+  }
+  @media (max-width: 520px) {
+    .nav .title { display: none; }
+    .nav .sep { display: none; }
+    .nav { padding: 0.45rem 0.6rem; }
+    .nav a { padding: 0.25rem 0.5rem; font-size: 0.66rem; letter-spacing: 0.18em; }
+  }
+
+  /* Smooth anchor scrolling, with offset so the nav doesn't cover headings */
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
   .closing {
     text-align: center;
@@ -648,6 +705,44 @@
     h1, .year, .crest, .eyebrow, .title-pre, .title-quote { opacity: 1; transform: none; }
     .curtain, .flash, .storm, .rays, .letterbox, .grain, .embers, .stars, .sparkles, #fireworks, .fog { display: none; }
     .role { opacity: 1; transform: none; }
+  }
+
+  /* ── Print: a clean, ink-friendly programme ─────────────── */
+  @media print {
+    html, body { background: #fff !important; color: #111 !important; }
+    .backdrop, .rays, .vignette, .storm, .fog, .grain, #fireworks,
+    .stars, .embers, .sparkles, .curtain, .flash, .letterbox,
+    #intro, .nav, .skip, .scroll-cue { display: none !important; }
+    body.intro-active { overflow: visible !important; height: auto !important; }
+    #programme { opacity: 1 !important; padding: 0 !important; }
+    .programme-header h2 {
+      -webkit-text-fill-color: initial; color: #111;
+      background: none; filter: none;
+    }
+    .programme-header .eyebrow-small,
+    .programme-header .sub,
+    .programme-header .quote,
+    .closing { color: #444 !important; }
+    .section-title { color: #222 !important; text-shadow: none !important; }
+    .section-title .flank { background: #888 !important; }
+    .cast-list {
+      background: none !important; border: 1px solid #ccc !important;
+      box-shadow: none !important; backdrop-filter: none !important;
+      page-break-inside: avoid;
+    }
+    .role { opacity: 1 !important; transform: none !important;
+            border-bottom-color: #ddd !important;
+            page-break-inside: avoid; }
+    .role-name, .actor-name { color: #111 !important; }
+    .role-name em { color: #555 !important; }
+    .dots { border-bottom-color: #999 !important; }
+    .role.lead .role-name { color: #000 !important; text-shadow: none !important; }
+    .role.witch .role-name, .role.supernatural .role-name { color: #333 !important; }
+    .closing .rule, .programme-header .divider {
+      background: #aaa !important;
+    }
+    .cast-block { margin-bottom: 1.4rem !important; }
+    @page { margin: 18mm; }
   }
 </style>
 </head>
@@ -699,8 +794,14 @@
 </div>
 
 <!-- ── PROGRAMME ─────────────────────────────────────────── -->
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Programme sections">
   <span class="title">Macbeth · MMXXVI</span>
+  <span class="sep" aria-hidden="true"></span>
+  <div class="nav-links">
+    <a href="#cast">Cast</a>
+    <a href="#crew">Backstage</a>
+    <a href="#faculty">Faculty</a>
+  </div>
 </nav>
 
 <section id="programme" aria-label="Cast and Production">
@@ -712,7 +813,7 @@
     <div class="divider"></div>
   </header>
 
-  <div class="cast-block">
+  <div class="cast-block" id="cast">
     <h3 class="section-title">
       <span class="flank"></span>
       <span>Dramatis Personae</span>
@@ -720,8 +821,8 @@
       <span class="flank"></span>
     </h3>
     <ul class="cast-list" id="cast-list">
-      <li class="role"><span class="role-name">Macbeth</span><span class="dots"></span><span class="actor-name">Kanav Vig</span></li>
-      <li class="role"><span class="role-name">Lady Macbeth</span><span class="dots"></span><span class="actor-name">Shivranjini Chaturvedi</span></li>
+      <li class="role lead"><span class="role-name">Macbeth</span><span class="dots"></span><span class="actor-name">Kanav Vig</span></li>
+      <li class="role lead"><span class="role-name">Lady Macbeth</span><span class="dots"></span><span class="actor-name">Shivranjini Chaturvedi</span></li>
       <li class="role"><span class="role-name">King Duncan</span><span class="dots"></span><span class="actor-name">Eunyul Ko</span></li>
       <li class="role"><span class="role-name">Malcolm</span><span class="dots"></span><span class="actor-name">Adhiraaj Mittal</span></li>
       <li class="role"><span class="role-name">Donalbain</span><span class="dots"></span><span class="actor-name">Zorawar Guri</span></li>
@@ -738,13 +839,13 @@
       <li class="role"><span class="role-name">Gentlewoman</span><span class="dots"></span><span class="actor-name">Rehnuma Ramchandani</span></li>
       <li class="role"><span class="role-name">First Murderer</span><span class="dots"></span><span class="actor-name">Jai Vardhan</span></li>
       <li class="role"><span class="role-name">Second Murderer</span><span class="dots"></span><span class="actor-name">Ruveer Behl</span></li>
-      <li class="role"><span class="role-name">Hecate</span><span class="dots"></span><span class="actor-name">Amvi Tripathi</span></li>
+      <li class="role supernatural"><span class="role-name">Hecate</span><span class="dots"></span><span class="actor-name">Amvi Tripathi</span></li>
       <li class="role witch"><span class="role-name">First Witch</span><span class="dots"></span><span class="actor-name">Meher Balsara</span></li>
       <li class="role witch"><span class="role-name">Second Witch</span><span class="dots"></span><span class="actor-name">Meher Aalia</span></li>
       <li class="role witch"><span class="role-name">Third Witch</span><span class="dots"></span><span class="actor-name">Mirabelle Wadhwani</span></li>
-      <li class="role"><span class="role-name">First Apparition</span><span class="dots"></span><span class="actor-name">Aarna Batra</span></li>
-      <li class="role"><span class="role-name">Second Apparition</span><span class="dots"></span><span class="actor-name">Amani Prasad</span></li>
-      <li class="role"><span class="role-name">Third Apparition</span><span class="dots"></span><span class="actor-name">Ariana Burman</span></li>
+      <li class="role supernatural"><span class="role-name">First Apparition</span><span class="dots"></span><span class="actor-name">Aarna Batra</span></li>
+      <li class="role supernatural"><span class="role-name">Second Apparition</span><span class="dots"></span><span class="actor-name">Amani Prasad</span></li>
+      <li class="role supernatural"><span class="role-name">Third Apparition</span><span class="dots"></span><span class="actor-name">Ariana Burman</span></li>
       <li class="role"><span class="role-name">Messenger <em>Act III</em></span><span class="dots"></span><span class="actor-name">Sahira Bhagchadka</span></li>
       <li class="role"><span class="role-name">Messenger <em>Act V</em></span><span class="dots"></span><span class="actor-name">India Karan Vadehra</span></li>
       <li class="role"><span class="role-name">Servant <em>Act III</em></span><span class="dots"></span><span class="actor-name">Cyra Malik</span></li>
@@ -753,7 +854,7 @@
     </ul>
   </div>
 
-  <div class="cast-block">
+  <div class="cast-block" id="crew">
     <h3 class="section-title">
       <span class="flank"></span>
       <span>Backstage</span>
@@ -775,7 +876,7 @@
     </ul>
   </div>
 
-  <div class="cast-block">
+  <div class="cast-block" id="faculty">
     <h3 class="section-title">
       <span class="flank"></span>
       <span>Faculty</span>
