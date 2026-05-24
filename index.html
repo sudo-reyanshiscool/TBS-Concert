@@ -854,6 +854,54 @@
   /* Smooth anchor scrolling, with offset so the nav doesn't cover headings */
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
+  /* ── Posters ────────────────────────────────────────────── */
+  #posters { max-width: 980px; }
+  .poster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+    padding: 0 0.2rem;
+  }
+  .poster {
+    display: flex; flex-direction: column; align-items: center;
+    text-decoration: none; color: inherit;
+    background: rgba(212, 197, 160, 0.035);
+    border: 1px solid rgba(201, 169, 97, 0.22);
+    border-radius: 6px;
+    padding: 0.95rem 0.95rem 0.75rem;
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1),
+                border-color 0.45s ease, box-shadow 0.45s ease;
+  }
+  .poster:hover, .poster:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgba(201, 169, 97, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(184, 36, 47, 0.18);
+    outline: none;
+  }
+  .poster img {
+    width: 100%; height: auto; display: block;
+    background: #f4ecd8;
+    border-radius: 3px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+  }
+  .poster-name {
+    margin: 0.9rem 0 0;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--candle-soft);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    .poster-grid {
+      grid-template-columns: 1fr;
+      gap: 1.3rem;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+  }
+
   .closing {
     text-align: center;
     max-width: 640px;
@@ -942,6 +990,7 @@
       background: #aaa !important;
     }
     .cast-block { margin-bottom: 1.4rem !important; }
+    #posters { display: none !important; }
     @page { margin: 18mm; }
   }
 </style>
@@ -1010,6 +1059,7 @@
     <a href="#cast">Cast</a>
     <a href="#crew">Backstage</a>
     <a href="#faculty">Faculty</a>
+    <a href="#posters">Posters</a>
   </div>
 </nav>
 
@@ -1099,6 +1149,29 @@
       <li class="role"><span class="role-name">Art</span><span class="dots"></span><span class="actor-name">Kristine Michael</span></li>
       <li class="role"><span class="role-name">Lights &amp; Sound Design</span><span class="dots"></span><span class="actor-name">Adarsh Mishra, Manish Haldar</span></li>
     </ul>
+  </div>
+
+  <div class="cast-block" id="posters">
+    <h3 class="section-title">
+      <span class="flank"></span>
+      <span>Posters</span>
+      <span class="glyph">&#8224;</span>
+      <span class="flank"></span>
+    </h3>
+    <div class="poster-grid">
+      <a class="poster" href="/posters/yurim-choi.png" target="_blank" rel="noopener">
+        <img src="/posters/yurim-choi.png" alt="Macbeth poster artwork by Yurim Choi" loading="lazy">
+        <p class="poster-name">Yurim Choi</p>
+      </a>
+      <a class="poster" href="/posters/cherisha-agarwal.png" target="_blank" rel="noopener">
+        <img src="/posters/cherisha-agarwal.png" alt="Macbeth poster artwork by Cherisha Agarwal" loading="lazy">
+        <p class="poster-name">Cherisha Agarwal</p>
+      </a>
+      <a class="poster" href="/posters/inayat-sood.png" target="_blank" rel="noopener">
+        <img src="/posters/inayat-sood.png" alt="Macbeth poster artwork by Inayat Sood" loading="lazy">
+        <p class="poster-name">Inayat Sood</p>
+      </a>
+    </div>
   </div>
 
   <div class="closing">
