@@ -819,7 +819,14 @@
   }
   .nav-links {
     display: flex; gap: 0.35rem; align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x proximity;
+    mask-image: linear-gradient(90deg, transparent 0, #000 8px, #000 calc(100% - 8px), transparent 100%);
   }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links > a { scroll-snap-align: start; flex: 0 0 auto; }
   .nav a {
     color: var(--candle-soft);
     font-family: "Inter", sans-serif;
@@ -840,11 +847,11 @@
   @media (max-width: 520px) {
     .nav .title { display: none; }
     .nav .sep { display: none; }
-    .nav { padding: 0.35rem 0.5rem; gap: 0.25rem; }
+    .nav { padding: 0.35rem 0.4rem; gap: 0.2rem; }
     .nav a {
-      padding: 0.55rem 0.85rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
+      padding: 0.55rem 0.72rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
       min-height: 38px;
       display: inline-flex;
       align-items: center;
@@ -854,53 +861,316 @@
   /* Smooth anchor scrolling, with offset so the nav doesn't cover headings */
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
-  /* ── Posters ────────────────────────────────────────────── */
-  #posters { max-width: 980px; }
-  .poster-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.6rem;
-    padding: 0 0.2rem;
-  }
-  .poster {
-    display: flex; flex-direction: column; align-items: center;
-    text-decoration: none; color: inherit;
-    background: rgba(212, 197, 160, 0.035);
-    border: 1px solid rgba(201, 169, 97, 0.22);
-    border-radius: 6px;
-    padding: 0.95rem 0.95rem 0.75rem;
-    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1),
-                border-color 0.45s ease, box-shadow 0.45s ease;
-  }
-  .poster:hover, .poster:focus-visible {
-    transform: translateY(-3px);
-    border-color: rgba(201, 169, 97, 0.5);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(184, 36, 47, 0.18);
-    outline: none;
-  }
-  .poster img {
-    width: 100%; height: auto; display: block;
-    background: #f4ecd8;
-    border-radius: 3px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
-  }
-  .poster-name {
-    margin: 0.9rem 0 0;
+  /* ── Posters: exhibition gallery ─────────────────────────── */
+  #posters { max-width: 1040px; }
+  .poster-intro {
+    text-align: center;
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
-    font-size: 0.98rem;
-    color: var(--candle-soft);
-    letter-spacing: 0.04em;
-    text-align: center;
+    color: rgba(212, 197, 160, 0.68);
+    font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+    letter-spacing: 0.02em;
+    max-width: 38ch;
+    margin: -0.6rem auto 2.2rem;
+    line-height: 1.55;
   }
-  @media (max-width: 720px) {
-    .poster-grid {
-      grid-template-columns: 1fr;
-      gap: 1.3rem;
-      max-width: 440px;
-      margin: 0 auto;
+  .poster-intro::before, .poster-intro::after {
+    content: "—";
+    color: var(--candle);
+    opacity: 0.55;
+    margin: 0 0.55rem;
+    font-style: normal;
+  }
+
+  .poster-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 0 0.2rem;
+  }
+
+  .plate {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+    transition: opacity 1.0s cubic-bezier(0.2, 0.9, 0.3, 1),
+                transform 1.0s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  .plate.in { opacity: 1; transform: none; }
+
+  .plate-num {
+    display: block;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--candle);
+    opacity: 0.78;
+    margin: 0 0 0.85rem;
+    padding-left: 0.42em;
+  }
+
+  .plate-frame {
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: zoom-in;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    font: inherit;
+    color: inherit;
+  }
+
+  .plate-mat {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background:
+      radial-gradient(ellipse at 30% 20%, #f5ecd2 0%, #ece1c0 55%, #ddcfa6 100%);
+    padding: clamp(0.85rem, 3.6vw, 1.4rem);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px rgba(80, 55, 25, 0.3),
+      0 0 0 5px #14100c,
+      0 0 0 7px rgba(201, 169, 97, 0.92),
+      0 0 0 8px rgba(0, 0, 0, 0.35),
+      0 18px 38px rgba(0, 0, 0, 0.55),
+      0 0 0 rgba(184, 36, 47, 0);
+    transition: box-shadow 0.55s ease,
+                transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  .plate-mat::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(60, 40, 20, 0.07) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.55;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  .plate-mat::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(60, 40, 20, 0.18) 100%);
+    pointer-events: none;
+  }
+  .plate-mat img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 5px 9px rgba(0, 0, 0, 0.32));
+  }
+
+  @media (hover: hover) {
+    .plate-frame:hover .plate-mat,
+    .plate-frame:focus-visible .plate-mat {
+      transform: translateY(-5px);
+      box-shadow:
+        inset 0 0 0 1px rgba(80, 55, 25, 0.3),
+        0 0 0 5px #14100c,
+        0 0 0 7px rgba(220, 188, 112, 1),
+        0 0 0 8px rgba(0, 0, 0, 0.4),
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        0 0 38px rgba(184, 36, 47, 0.35);
+    }
+    .plate-frame:focus-visible { outline: none; }
+  }
+  .plate-frame:active .plate-mat {
+    transform: translateY(-2px) scale(0.995);
+  }
+
+  .plate-caption {
+    text-align: center;
+    margin: 1.1rem 0 0;
+    display: flex; align-items: center; justify-content: center; gap: 0.85rem;
+    flex-wrap: nowrap;
+  }
+  .plate-caption .flourish {
+    color: var(--candle);
+    opacity: 0.55;
+    font-size: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    line-height: 1;
+  }
+  .plate-caption .artist {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.05rem, 3.4vw, 1.25rem);
+    color: var(--candle-bright);
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 14px rgba(201, 169, 97, 0.25);
+  }
+
+  @media (min-width: 760px) {
+    .poster-gallery {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.4rem;
+      max-width: 100%;
     }
   }
+
+  /* ── Lightbox ───────────────────────────────────────────── */
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(8, 6, 7, 0.95);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    z-index: 60;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+    padding: max(1rem, env(safe-area-inset-top))
+             max(1rem, env(safe-area-inset-right))
+             max(1.2rem, env(safe-area-inset-bottom))
+             max(1rem, env(safe-area-inset-left));
+  }
+  .lightbox.show {
+    opacity: 1; visibility: visible;
+    transition: opacity 0.4s ease;
+  }
+  .lightbox-stage {
+    flex: 1; width: 100%; max-width: 1100px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1.4rem; min-height: 0;
+    position: relative;
+  }
+  .lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100dvh - 180px);
+    width: auto; height: auto;
+    object-fit: contain;
+    background: #f3ead2;
+    box-shadow:
+      0 0 0 5px #14100c,
+      0 0 0 7px rgba(220, 188, 112, 0.95),
+      0 26px 60px rgba(0, 0, 0, 0.75),
+      0 0 50px rgba(184, 36, 47, 0.32);
+    user-select: none; -webkit-user-select: none;
+    touch-action: pan-y pinch-zoom;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  .lightbox.show .lightbox-image { opacity: 1; transform: none; }
+
+  .lightbox-meta {
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+  }
+  .lightbox-plate {
+    font-family: "Inter", sans-serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--candle);
+    opacity: 0.78;
+    margin: 0;
+    padding-left: 0.42em;
+  }
+  .lightbox-artist {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--candle-bright);
+    font-size: 1.18rem;
+    letter-spacing: 0.04em;
+    margin: 0;
+    text-shadow: 0 0 14px rgba(201, 169, 97, 0.3);
+  }
+
+  .lightbox-btn {
+    appearance: none; -webkit-appearance: none;
+    background: rgba(10, 7, 8, 0.75);
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    color: var(--candle-bright);
+    font-family: "Cormorant Garamond", serif;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0; line-height: 1;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .lightbox-btn:hover, .lightbox-btn:focus-visible {
+    background: rgba(184, 36, 47, 0.22);
+    border-color: var(--candle-bright);
+    outline: none;
+  }
+  .lightbox-btn:active { transform: scale(0.94); }
+
+  .lightbox-close {
+    position: absolute;
+    top: max(0.8rem, env(safe-area-inset-top));
+    right: max(0.8rem, env(safe-area-inset-right));
+    width: 48px; height: 48px;
+    font-size: 1.5rem;
+    z-index: 2;
+  }
+  .lightbox-prev, .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px; height: 52px;
+    font-size: 1.9rem;
+    z-index: 2;
+  }
+  .lightbox-prev { left: max(0.8rem, env(safe-area-inset-left)); }
+  .lightbox-next { right: max(0.8rem, env(safe-area-inset-right)); }
+
+  .lightbox-counter {
+    position: absolute;
+    top: max(0.8rem, env(safe-area-inset-top));
+    left: max(0.8rem, env(safe-area-inset-left));
+    font-family: "Inter", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--candle-soft);
+    opacity: 0.7;
+    padding: 0.5rem 0.85rem;
+    background: rgba(10, 7, 8, 0.55);
+    border: 1px solid rgba(201, 169, 97, 0.22);
+    border-radius: 999px;
+    z-index: 2;
+  }
+
+  @media (max-width: 600px) {
+    .lightbox-prev, .lightbox-next {
+      top: auto;
+      bottom: max(1.4rem, env(safe-area-inset-bottom));
+      transform: none;
+      width: 58px; height: 58px;
+      font-size: 2.1rem;
+    }
+    .lightbox-prev { left: max(1rem, env(safe-area-inset-left)); transform: scaleX(1); }
+    .lightbox-next { right: max(1rem, env(safe-area-inset-right)); }
+    .lightbox-image { max-height: calc(100dvh - 220px); }
+    .lightbox-stage { padding-bottom: 4.6rem; gap: 1rem; }
+    .lightbox-counter { font-size: 0.62rem; letter-spacing: 0.26em; padding: 0.4rem 0.7rem; }
+    .lightbox-close { width: 52px; height: 52px; }
+  }
+  @media (max-width: 380px) {
+    .lightbox-image { max-height: calc(100dvh - 240px); }
+  }
+
+  body.lightbox-open { overflow: hidden; }
 
   .closing {
     text-align: center;
@@ -953,6 +1223,7 @@
     h1, .year, .crest, .eyebrow, .title-pre, .title-quote { opacity: 1; transform: none; }
     .curtain, .flash, .storm, .rays, .letterbox, .grain, .embers, .stars, .sparkles, #fireworks, .fog { display: none; }
     .role { opacity: 1; transform: none; }
+    .plate { opacity: 1; transform: none; transition: none; }
   }
 
   /* ── Print: a clean, ink-friendly programme ─────────────── */
@@ -1158,19 +1429,47 @@
       <span class="glyph">&#8224;</span>
       <span class="flank"></span>
     </h3>
-    <div class="poster-grid">
-      <a class="poster" href="/posters/yurim-choi.png" target="_blank" rel="noopener">
-        <img src="/posters/yurim-choi.png" alt="Macbeth poster artwork by Yurim Choi" loading="lazy">
-        <p class="poster-name">Yurim Choi</p>
-      </a>
-      <a class="poster" href="/posters/cherisha-agarwal.png" target="_blank" rel="noopener">
-        <img src="/posters/cherisha-agarwal.png" alt="Macbeth poster artwork by Cherisha Agarwal" loading="lazy">
-        <p class="poster-name">Cherisha Agarwal</p>
-      </a>
-      <a class="poster" href="/posters/inayat-sood.png" target="_blank" rel="noopener">
-        <img src="/posters/inayat-sood.png" alt="Macbeth poster artwork by Inayat Sood" loading="lazy">
-        <p class="poster-name">Inayat Sood</p>
-      </a>
+    <p class="poster-intro">Three students, three visions of the same haunted heath</p>
+    <div class="poster-gallery">
+      <figure class="plate">
+        <span class="plate-num">Plate I</span>
+        <button class="plate-frame" type="button" data-index="0" aria-label="View poster by Yurim Choi full size">
+          <span class="plate-mat">
+            <img src="/posters/yurim-choi.png" alt="Macbeth poster artwork by Yurim Choi — a lady in mourning before a serpent" loading="lazy" decoding="async">
+          </span>
+        </button>
+        <figcaption class="plate-caption">
+          <span class="flourish" aria-hidden="true">&#8224;</span>
+          <span class="artist">Yurim Choi</span>
+          <span class="flourish" aria-hidden="true">&#8224;</span>
+        </figcaption>
+      </figure>
+      <figure class="plate">
+        <span class="plate-num">Plate II</span>
+        <button class="plate-frame" type="button" data-index="1" aria-label="View poster by Cherisha Agarwal full size">
+          <span class="plate-mat">
+            <img src="/posters/cherisha-agarwal.png" alt="Macbeth poster artwork by Cherisha Agarwal — a cauldron and castle wreathed in vines" loading="lazy" decoding="async">
+          </span>
+        </button>
+        <figcaption class="plate-caption">
+          <span class="flourish" aria-hidden="true">&#8224;</span>
+          <span class="artist">Cherisha Agarwal</span>
+          <span class="flourish" aria-hidden="true">&#8224;</span>
+        </figcaption>
+      </figure>
+      <figure class="plate">
+        <span class="plate-num">Plate III</span>
+        <button class="plate-frame" type="button" data-index="2" aria-label="View poster by Inayat Sood full size">
+          <span class="plate-mat">
+            <img src="/posters/inayat-sood.png" alt="Macbeth poster artwork by Inayat Sood — twin crowns and a bloodied dagger" loading="lazy" decoding="async">
+          </span>
+        </button>
+        <figcaption class="plate-caption">
+          <span class="flourish" aria-hidden="true">&#8224;</span>
+          <span class="artist">Inayat Sood</span>
+          <span class="flourish" aria-hidden="true">&#8224;</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 
@@ -1181,6 +1480,21 @@
 </section>
 
 <div class="grain"></div>
+
+<!-- ── POSTER LIGHTBOX ─────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Poster gallery viewer">
+  <span class="lightbox-counter" id="lightbox-counter">Plate I of III</span>
+  <button class="lightbox-btn lightbox-close" type="button" aria-label="Close gallery">&times;</button>
+  <button class="lightbox-btn lightbox-prev" type="button" aria-label="Previous poster">&#8249;</button>
+  <button class="lightbox-btn lightbox-next" type="button" aria-label="Next poster">&#8250;</button>
+  <div class="lightbox-stage">
+    <img class="lightbox-image" id="lightbox-image" alt="" />
+    <div class="lightbox-meta">
+      <p class="lightbox-plate" id="lightbox-plate">Plate I</p>
+      <p class="lightbox-artist" id="lightbox-artist">Yurim Choi</p>
+    </div>
+  </div>
+</div>
 
 <script>
   /* ── Stars ────────────────────────────────────────────────── */
@@ -1399,6 +1713,127 @@
   window.addEventListener("keydown",   function (e) {
     if (["ArrowDown", "PageDown", " ", "Enter", "Escape"].indexOf(e.key) >= 0) earlyEnter();
   });
+
+  /* ── Poster gallery: reveal + lightbox ────────────────────── */
+  (function () {
+    var frames = [].slice.call(document.querySelectorAll(".plate-frame"));
+    if (!frames.length) return;
+
+    var lightbox = document.getElementById("lightbox");
+    var lbImage  = document.getElementById("lightbox-image");
+    var lbPlate  = document.getElementById("lightbox-plate");
+    var lbArtist = document.getElementById("lightbox-artist");
+    var lbCount  = document.getElementById("lightbox-counter");
+    var lbClose  = lightbox.querySelector(".lightbox-close");
+    var lbPrev   = lightbox.querySelector(".lightbox-prev");
+    var lbNext   = lightbox.querySelector(".lightbox-next");
+
+    var roman = ["I", "II", "III", "IV", "V"];
+    var posters = frames.map(function (btn) {
+      var img    = btn.querySelector("img");
+      var figure = btn.closest(".plate");
+      var artist = figure.querySelector(".artist").textContent.trim();
+      var plate  = figure.querySelector(".plate-num").textContent.trim();
+      return { src: img.src, alt: img.alt, artist: artist, plate: plate };
+    });
+
+    var current = 0;
+    var lastFocus = null;
+
+    function render(idx) {
+      current = (idx + posters.length) % posters.length;
+      var p = posters[current];
+      lbImage.src = p.src;
+      lbImage.alt = p.alt;
+      lbArtist.textContent = p.artist;
+      lbPlate.textContent  = p.plate;
+      lbCount.textContent  = p.plate + " of " + roman[posters.length - 1];
+    }
+
+    function open(idx) {
+      lastFocus = document.activeElement;
+      render(idx);
+      lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      // Defer focus so transition can start
+      setTimeout(function () { lbClose.focus(); }, 60);
+    }
+
+    function close() {
+      lightbox.classList.remove("show");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    frames.forEach(function (btn, i) {
+      btn.addEventListener("click", function () { open(i); });
+    });
+    lbClose.addEventListener("click", close);
+    lbPrev .addEventListener("click", function () { render(current - 1); });
+    lbNext .addEventListener("click", function () { render(current + 1); });
+
+    lightbox.addEventListener("click", function (e) {
+      // close when clicking backdrop or stage area, but not image/buttons/meta
+      if (e.target === lightbox || e.target.classList.contains("lightbox-stage")) close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("show")) return;
+      if (e.key === "Escape") { e.preventDefault(); close(); }
+      else if (e.key === "ArrowLeft")  { e.preventDefault(); render(current - 1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); render(current + 1); }
+      else if (e.key === "Tab") {
+        // simple focus trap between the four controls
+        var focusables = [lbClose, lbPrev, lbNext];
+        var idx = focusables.indexOf(document.activeElement);
+        if (idx === -1) { e.preventDefault(); focusables[0].focus(); return; }
+        var next = e.shiftKey ? (idx - 1 + focusables.length) % focusables.length
+                              : (idx + 1) % focusables.length;
+        e.preventDefault();
+        focusables[next].focus();
+      }
+    });
+
+    // Touch swipe
+    var sx = 0, sy = 0, swiping = false;
+    lightbox.addEventListener("touchstart", function (e) {
+      if (!lightbox.classList.contains("show")) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      swiping = true;
+    }, { passive: true });
+    lightbox.addEventListener("touchend", function (e) {
+      if (!swiping) return;
+      swiping = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx;
+      var dy = t.clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        if (dx > 0) render(current - 1);
+        else        render(current + 1);
+      }
+    }, { passive: true });
+
+    // Reveal plates on scroll
+    var plates = document.querySelectorAll(".plate");
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var idx = [].indexOf.call(entry.target.parentElement.children, entry.target);
+            entry.target.style.transitionDelay = (Math.min(idx, 6) * 0.14) + "s";
+            entry.target.classList.add("in");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+      plates.forEach(function (p) { io.observe(p); });
+    } else {
+      plates.forEach(function (p) { p.classList.add("in"); });
+    }
+  })();
 </script>
 
 </body>
