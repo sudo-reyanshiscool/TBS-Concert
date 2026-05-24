@@ -882,6 +882,122 @@
     font-style: normal;
   }
 
+  /* ── Candles ────────────────────────────────────────────── */
+  .poster-candles {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(2.4rem, 9vw, 4.2rem);
+    height: 110px;
+    margin: 0 auto 2.4rem;
+    position: relative;
+    pointer-events: none;
+  }
+  .poster-candles::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    width: clamp(220px, 60vw, 420px);
+    height: 140px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(255, 170, 80, 0.16) 0%, rgba(184, 36, 47, 0.08) 35%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(2px);
+  }
+  .candle {
+    position: relative;
+    width: 11px;
+    height: 70px;
+    background:
+      linear-gradient(180deg, #f3e6bf 0%, #ecdba6 55%, #cdb682 100%);
+    border-radius: 3px 3px 1px 1px;
+    box-shadow:
+      inset -2.5px 0 3px rgba(110, 80, 40, 0.45),
+      inset 2px 0 3px rgba(255, 240, 195, 0.4),
+      0 3px 7px rgba(0, 0, 0, 0.55);
+  }
+  /* Wax drip down one side */
+  .candle::after {
+    content: "";
+    position: absolute;
+    top: 16%;
+    left: -2px;
+    width: 3px;
+    height: 38%;
+    background: linear-gradient(180deg, #f0e2b5, #d6c08a);
+    border-radius: 2px 0 4px 4px / 2px 0 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    opacity: 0.85;
+  }
+  /* Wick */
+  .candle .wick {
+    position: absolute;
+    top: -4px; left: 50%;
+    width: 1.4px; height: 5px;
+    background: #1d1108;
+    transform: translateX(-50%);
+    border-radius: 1px;
+  }
+  /* Flame */
+  .flame {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    width: 13px;
+    height: 26px;
+    background: radial-gradient(ellipse at 50% 72%,
+      #fffae0 0%,
+      #ffe084 25%,
+      #ffa83a 55%,
+      #d84a26 80%,
+      #6a0f1d 100%);
+    border-radius: 50% 50% 32% 32% / 62% 62% 38% 38%;
+    transform-origin: 50% 100%;
+    transform: translateX(-50%);
+    box-shadow:
+      0 0 12px 3px rgba(255, 190, 100, 0.6),
+      0 0 28px 9px rgba(255, 130, 60, 0.42),
+      0 0 60px 18px rgba(184, 36, 47, 0.28),
+      0 0 110px 32px rgba(184, 36, 47, 0.14);
+    animation: flicker 2.4s ease-in-out infinite;
+    will-change: transform, opacity;
+    filter: blur(0.2px);
+  }
+  /* Tiny brighter inner flame */
+  .flame::before {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: 18%;
+    width: 5px; height: 9px;
+    background: radial-gradient(ellipse at center,
+      rgba(255, 255, 230, 0.95) 0%,
+      rgba(255, 220, 140, 0.5) 60%,
+      transparent 100%);
+    border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+    transform: translateX(-50%);
+    animation: flickerCore 1.7s ease-in-out infinite;
+  }
+  @keyframes flicker {
+    0%, 100% { transform: translateX(-50%) scale(1, 1)        skewX(0deg);   opacity: 1;    }
+    18%      { transform: translateX(-50%) scale(1.05, 0.94)  skewX(2.5deg); opacity: 0.94; }
+    34%      { transform: translateX(-50%) scale(0.94, 1.08)  skewX(-2deg);  opacity: 1;    }
+    52%      { transform: translateX(-50%) scale(1.02, 0.97)  skewX(1deg);   opacity: 0.9;  }
+    70%      { transform: translateX(-50%) scale(0.97, 1.05)  skewX(-2.5deg);opacity: 0.98; }
+    86%      { transform: translateX(-50%) scale(1.03, 0.96)  skewX(1.5deg); opacity: 0.95; }
+  }
+  @keyframes flickerCore {
+    0%, 100% { opacity: 0.9; transform: translateX(-50%) scale(1, 1); }
+    50%      { opacity: 1;   transform: translateX(-50%) scale(0.85, 1.15); }
+  }
+  /* Stagger each flame so they don't tick in unison */
+  .candle:nth-child(1) .flame { animation-delay: -0.4s; animation-duration: 2.2s; }
+  .candle:nth-child(2) .flame { animation-delay: -1.3s; animation-duration: 2.7s; }
+  .candle:nth-child(3) .flame { animation-delay: -0.8s; animation-duration: 2.4s; }
+  .candle:nth-child(2) { height: 86px; }   /* center candle is taller */
+  .candle:nth-child(1), .candle:nth-child(3) { height: 64px; }
+
   .poster-gallery {
     display: grid;
     grid-template-columns: 1fr;
@@ -1224,6 +1340,7 @@
     .curtain, .flash, .storm, .rays, .letterbox, .grain, .embers, .stars, .sparkles, #fireworks, .fog { display: none; }
     .role { opacity: 1; transform: none; }
     .plate { opacity: 1; transform: none; transition: none; }
+    .flame, .flame::before { animation: none !important; }
   }
 
   /* ── Print: a clean, ink-friendly programme ─────────────── */
@@ -1430,6 +1547,11 @@
       <span class="flank"></span>
     </h3>
     <p class="poster-intro">Three students, three visions of the same haunted heath</p>
+    <div class="poster-candles" aria-hidden="true">
+      <span class="candle"><span class="wick"></span><span class="flame"></span></span>
+      <span class="candle"><span class="wick"></span><span class="flame"></span></span>
+      <span class="candle"><span class="wick"></span><span class="flame"></span></span>
+    </div>
     <div class="poster-gallery">
       <figure class="plate">
         <span class="plate-num">Plate I</span>
