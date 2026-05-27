@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0708">
-<title>The British School · Macbeth · 2026</title>
+<meta name="theme-color" content="#08061a">
+<title>The British School · TBS Got Talent · 2026</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,20 +12,21 @@
 
 <style>
   :root {
-    --night:        #0a0708;
-    --night-deep:   #050304;
-    --shadow:       #1a0d10;
-    --shadow-warm:  #2a1418;
-    --blood-deep:   #4a0a10;
-    --blood:        #8b0a1a;
-    --blood-bright: #b8242f;
-    --candle:       #c9a961;
-    --candle-soft:  #d4b876;
-    --candle-bright:#e8c987;
-    --candle-white: #fff0c4;
-    --ember:        #ff7e3d;
-    --bone:         #d4c5a0;
-    --text:         #d4c5a0;
+    --night:        #08061a;
+    --night-deep:   #040310;
+    --shadow:       #0e0a2a;
+    --shadow-warm:  #1a1440;
+    --accent-deep:  #4a0a60;
+    --accent:       #9b30ff;
+    --accent-bright:#c66dff;
+    --gold:         #f0c040;
+    --gold-soft:    #e8b838;
+    --gold-bright:  #ffd666;
+    --gold-white:   #fff8d6;
+    --coral:        #ff6b6b;
+    --teal:         #3de8c8;
+    --bone:         #e0d8f0;
+    --text:         #d8d0e8;
   }
 
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -42,13 +43,12 @@
   body.intro-active { overflow: hidden; height: 100vh; }
   body.programme-active { overflow-y: auto; }
 
-  /* ── Background composition ─────────────────────────────── */
   .backdrop {
     position: fixed; inset: 0; z-index: 0;
     background:
-      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(139, 10, 26, 0.30), transparent 70%),
-      radial-gradient(ellipse 50% 45% at 18% 85%, rgba(74, 10, 16, 0.55), transparent 65%),
-      radial-gradient(ellipse 45% 45% at 85% 75%, rgba(201, 169, 97, 0.06), transparent 65%),
+      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(155, 48, 255, 0.18), transparent 70%),
+      radial-gradient(ellipse 50% 45% at 18% 85%, rgba(74, 10, 96, 0.40), transparent 65%),
+      radial-gradient(ellipse 45% 45% at 85% 75%, rgba(240, 192, 64, 0.06), transparent 65%),
       linear-gradient(180deg, var(--night-deep) 0%, var(--shadow) 60%, var(--night-deep) 100%);
     animation: drift 26s ease-in-out infinite alternate;
   }
@@ -60,7 +60,7 @@
 
   .grain {
     position: fixed; inset: -50%; z-index: 6; pointer-events: none;
-    opacity: 0.08; mix-blend-mode: overlay;
+    opacity: 0.06; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     animation: grain 0.6s steps(4) infinite;
   }
@@ -72,20 +72,20 @@
     100% { transform: translate(2%, -1%); }
   }
 
-  .rays {
+  .spotlight {
     position: fixed; inset: -10% -10% auto -10%; height: 80%; z-index: 1;
     background:
       conic-gradient(from -10deg at 50% -10%,
         transparent 0deg,
-        rgba(255, 180, 100, 0.04) 12deg,
+        rgba(155, 48, 255, 0.06) 12deg,
         transparent 22deg, transparent 50deg,
-        rgba(255, 180, 100, 0.03) 60deg,
+        rgba(240, 192, 64, 0.05) 60deg,
         transparent 75deg, transparent 110deg,
-        rgba(255, 180, 100, 0.04) 120deg,
+        rgba(61, 232, 200, 0.04) 120deg,
         transparent 135deg);
     mix-blend-mode: screen;
     filter: blur(3px); opacity: 0;
-    animation: raysIn 2.4s ease 2.0s forwards, raysSway 14s ease-in-out 4.4s infinite alternate;
+    animation: raysIn 2.4s ease 1.0s forwards, raysSway 14s ease-in-out 3.4s infinite alternate;
     transform-origin: 50% 0%;
   }
   @keyframes raysIn { to { opacity: 1; } }
@@ -96,44 +96,34 @@
     background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,0.78) 100%);
   }
 
-  .fog {
+  .glow-floor {
     position: fixed; bottom: -5%; left: -10%; right: -10%; height: 40vh;
     z-index: 3; pointer-events: none;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(70, 40, 45, 0.45), transparent 70%),
-      linear-gradient(180deg, transparent 0%, rgba(40, 20, 25, 0.4) 55%, rgba(15, 8, 10, 0.85) 100%);
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(155, 48, 255, 0.20), transparent 70%),
+      linear-gradient(180deg, transparent 0%, rgba(20, 10, 40, 0.4) 55%, rgba(8, 4, 18, 0.85) 100%);
     filter: blur(10px);
-    animation: fogDrift 22s ease-in-out infinite alternate;
+    animation: glowDrift 22s ease-in-out infinite alternate;
   }
-  @keyframes fogDrift {
+  @keyframes glowDrift {
     0%   { transform: translateX(-3%) scale(1.02); opacity: 0.85; }
     100% { transform: translateX(3%) scale(1.06); opacity: 1; }
   }
 
-  /* ── Intro overlay ─────────────────────────────────────── */
   #intro {
     position: fixed; inset: 0; z-index: 50;
     transition: opacity 1.1s ease, visibility 1.1s ease;
   }
   #intro.hide { opacity: 0; visibility: hidden; pointer-events: none; }
 
-  .letterbox {
-    position: absolute; left: 0; right: 0; height: 9vh; z-index: 7; pointer-events: none;
-    background: #000;
-  }
-  .letterbox.top    { top: 0;    animation: barUp   1.4s cubic-bezier(0.7, 0, 0.2, 1) 2.6s forwards; }
-  .letterbox.bottom { bottom: 0; animation: barDown 1.4s cubic-bezier(0.7, 0, 0.2, 1) 2.6s forwards; }
-  @keyframes barUp   { to { transform: translateY(-100%); } }
-  @keyframes barDown { to { transform: translateY(100%); } }
-
-  .stars, .embers, .sparkles {
+  .stars-container, .confetti-container {
     position: absolute; inset: 0; overflow: hidden; z-index: 1; pointer-events: none;
   }
-  #fireworks { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  #confetti-canvas { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 
   .star {
-    position: absolute; background: var(--bone); border-radius: 50%;
-    opacity: 0; box-shadow: 0 0 6px rgba(212, 197, 160, 0.6);
+    position: absolute; background: var(--gold-bright); border-radius: 50%;
+    opacity: 0; box-shadow: 0 0 6px rgba(240, 192, 64, 0.6);
     animation: twinkle 5.2s ease-in-out infinite;
   }
   @keyframes twinkle {
@@ -141,200 +131,21 @@
     50%      { opacity: 0.75; transform: scale(1.4); }
   }
 
-  .dagger {
+  .float-note {
     position: absolute; bottom: -40px;
-    color: rgba(212, 197, 160, 0.35);
+    color: rgba(240, 192, 64, 0.35);
     opacity: 0;
-    text-shadow: 0 0 14px rgba(184, 36, 47, 0.45);
-    animation: float 22s linear infinite;
+    text-shadow: 0 0 14px rgba(155, 48, 255, 0.45);
+    animation: floatUp 22s linear infinite;
     font-family: "Cormorant Garamond", serif;
     font-weight: 500;
   }
-  @keyframes float {
-    0%   { transform: translateY(0) translateX(0) rotate(180deg); opacity: 0; }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
     8%   { opacity: 0.55; }
-    50%  { transform: translateY(-55vh) translateX(30px) rotate(176deg); opacity: 0.65; }
+    50%  { transform: translateY(-55vh) translateX(30px) rotate(12deg); opacity: 0.65; }
     92%  { opacity: 0.3; }
-    100% { transform: translateY(-115vh) translateX(-20px) rotate(184deg); opacity: 0; }
-  }
-
-  .sparkle {
-    position: absolute; width: 5px; height: 5px;
-    background: var(--ember); border-radius: 50%;
-    box-shadow: 0 0 14px var(--ember), 0 0 30px var(--blood);
-    opacity: 0;
-    animation: sparkleOut 2.0s ease-out forwards;
-  }
-  @keyframes sparkleOut {
-    0%   { opacity: 1; transform: translate(-50%,-50%) scale(0); }
-    50%  { opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); }
-    100% { opacity: 0; transform: translate(calc(-50% + var(--dx2)), calc(-50% + var(--dy2))) scale(0.2); }
-  }
-
-  /* ── Stabbing dagger animation ───────────────────────── */
-  .stab-dagger {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 16px; height: 220px;
-    z-index: 9;
-    pointer-events: none;
-    transform-origin: 50% 100%;
-    transform: translate(-50%, -160%) rotate(-135deg) translateY(-120vh) scale(1.4);
-    opacity: 0;
-    filter: drop-shadow(0 0 14px rgba(255, 240, 196, 0.55))
-            drop-shadow(0 0 22px rgba(184, 36, 47, 0.4));
-    animation: stabPlunge 1.1s cubic-bezier(0.55, 0, 0.85, 0.2) 3.6s forwards,
-               stabQuiver 0.5s ease-out 4.7s forwards;
-  }
-  .stab-dagger .blade {
-    position: absolute; left: 50%; top: 0;
-    width: 10px; height: 150px;
-    transform: translateX(-50%);
-    background: linear-gradient(180deg,
-      #fffbe6 0%, #e8d9a8 20%, #c9a961 55%, #8a7332 95%, transparent 100%);
-    clip-path: polygon(50% 0, 100% 18%, 100% 92%, 50% 100%, 0 92%, 0 18%);
-    box-shadow: inset 0 0 6px rgba(255,255,255,0.6);
-  }
-  .stab-dagger .blade::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(90deg, transparent 40%, rgba(255,255,255,0.85) 50%, transparent 60%);
-    clip-path: inherit;
-  }
-  .stab-dagger .guard {
-    position: absolute; left: 50%; top: 144px;
-    width: 44px; height: 8px;
-    transform: translateX(-50%);
-    background: linear-gradient(180deg, #c9a961, #6b5420);
-    border-radius: 2px;
-    box-shadow: 0 0 8px rgba(201, 169, 97, 0.6);
-  }
-  .stab-dagger .hilt {
-    position: absolute; left: 50%; top: 152px;
-    width: 12px; height: 56px;
-    transform: translateX(-50%);
-    background: linear-gradient(180deg, #3a1a08, #1a0a04);
-    border-radius: 2px;
-  }
-  .stab-dagger .pommel {
-    position: absolute; left: 50%; top: 204px;
-    width: 18px; height: 18px;
-    transform: translateX(-50%);
-    background: radial-gradient(circle at 35% 35%, #e8c987, #8a6f2e 60%, #3a2a0a);
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(232, 201, 135, 0.7);
-  }
-
-  @keyframes stabPlunge {
-    0%   { opacity: 0; transform: translate(-50%, -160%) rotate(-135deg) translateY(-120vh) scale(1.4); }
-    18%  { opacity: 1; }
-    72%  { opacity: 1; transform: translate(-50%, -160%) rotate(-135deg) translateY(-4vh) scale(1.1); }
-    100% { opacity: 1; transform: translate(-50%, -160%) rotate(-135deg) translateY(2vh) scale(1.0); }
-  }
-  @keyframes stabQuiver {
-    0%   { transform: translate(-50%, -160%) rotate(-135deg) translateY(2vh) scale(1.0); }
-    25%  { transform: translate(-50%, -160%) rotate(-133deg) translateY(2vh) scale(1.0); }
-    55%  { transform: translate(-50%, -160%) rotate(-137deg) translateY(2vh) scale(1.0); }
-    80%  { transform: translate(-50%, -160%) rotate(-134.5deg) translateY(2vh) scale(1.0); }
-    100% { transform: translate(-50%, -160%) rotate(-135deg) translateY(2vh) scale(1.0); }
-  }
-
-  .blood-splatter {
-    position: absolute; top: 50%; left: 50%;
-    width: 0; height: 0;
-    z-index: 8;
-    pointer-events: none;
-    opacity: 0;
-    animation: bloodBurst 1.4s ease-out 4.55s forwards;
-  }
-  .blood-splatter::before, .blood-splatter::after {
-    content: ""; position: absolute;
-    left: 50%; top: 50%;
-    width: 360px; height: 360px;
-    transform: translate(-50%, -50%);
-    background:
-      radial-gradient(circle at 30% 40%, rgba(184, 36, 47, 0.85) 0%, transparent 8%),
-      radial-gradient(circle at 70% 30%, rgba(139, 10, 26, 0.8) 0%, transparent 6%),
-      radial-gradient(circle at 50% 60%, rgba(184, 36, 47, 0.9) 0%, transparent 10%),
-      radial-gradient(circle at 20% 70%, rgba(139, 10, 26, 0.7) 0%, transparent 7%),
-      radial-gradient(circle at 80% 75%, rgba(184, 36, 47, 0.75) 0%, transparent 6%),
-      radial-gradient(circle at 45% 20%, rgba(139, 10, 26, 0.65) 0%, transparent 5%),
-      radial-gradient(circle at 60% 85%, rgba(184, 36, 47, 0.7) 0%, transparent 8%);
-    filter: blur(0.5px);
-  }
-  .blood-splatter::after {
-    width: 520px; height: 520px;
-    transform: translate(-50%, -50%) rotate(72deg);
-    opacity: 0.6;
-  }
-  @keyframes bloodBurst {
-    0%   { opacity: 0; transform: scale(0.1); }
-    18%  { opacity: 1; transform: scale(1.15); }
-    100% { opacity: 0; transform: scale(1.4); }
-  }
-
-  @keyframes screenShake {
-    0%, 100% { transform: translate(0, 0); }
-    15%  { transform: translate(-8px, 6px); }
-    30%  { transform: translate(7px, -5px); }
-    45%  { transform: translate(-5px, -7px); }
-    60%  { transform: translate(6px, 4px); }
-    75%  { transform: translate(-3px, 5px); }
-    90%  { transform: translate(2px, -2px); }
-  }
-  #intro .stage { animation: breathe 14s ease-in-out 3s infinite alternate, screenShake 0.55s ease-out 4.55s; }
-
-  /* Theatre curtains — blood red */
-  .curtain {
-    position: absolute; top: 0; width: 52%; height: 100%; z-index: 8;
-    background:
-      repeating-linear-gradient(90deg,
-        rgba(0,0,0,0.55) 0 4px,
-        rgba(0,0,0,0.25) 4px 10px,
-        transparent 10px 26px,
-        rgba(0,0,0,0.3) 26px 32px),
-      linear-gradient(180deg, #1a0205 0%, #5a0810 45%, #1a0205 100%);
-    box-shadow: inset 0 0 140px rgba(0,0,0,0.92);
-  }
-  .curtain.left  { left: 0;  animation: openLeft  2.2s cubic-bezier(0.65, 0, 0.25, 1) 0.6s forwards; }
-  .curtain.right { right: 0; animation: openRight 2.2s cubic-bezier(0.65, 0, 0.25, 1) 0.6s forwards; }
-  @keyframes openLeft  { to { transform: translateX(-105%); } }
-  @keyframes openRight { to { transform: translateX(105%); } }
-
-  /* Lightning — sharp white strike on reveal */
-  .flash {
-    position: absolute; inset: 0; z-index: 7; pointer-events: none;
-    background: radial-gradient(circle at 50% 40%,
-      rgba(255,255,255,0.98), rgba(220,200,160,0.4) 30%, transparent 70%);
-    opacity: 0;
-    animation: lightning 1.6s ease-out 2.6s forwards;
-  }
-  @keyframes lightning {
-    0%   { opacity: 0; transform: scale(0.4); }
-    14%  { opacity: 1; transform: scale(0.9); }
-    22%  { opacity: 0.05; }
-    32%  { opacity: 0.95; transform: scale(1.05); }
-    44%  { opacity: 0.1; }
-    100% { opacity: 0; transform: scale(2.4); }
-  }
-
-  /* Ongoing storm — periodic distant flashes */
-  .storm {
-    position: fixed; inset: 0; z-index: 4; pointer-events: none;
-    background: linear-gradient(180deg, rgba(255,255,240,0.3) 0%, transparent 60%);
-    mix-blend-mode: screen;
-    opacity: 0;
-    animation: storm 18s ease-in-out 9s infinite;
-  }
-  @keyframes storm {
-    0%, 6%   { opacity: 0; }
-    7%       { opacity: 0.55; }
-    8%       { opacity: 0.08; }
-    9%       { opacity: 0.7; }
-    11%      { opacity: 0; }
-    62%      { opacity: 0; }
-    63%      { opacity: 0.4; }
-    64%      { opacity: 0; }
-    100%     { opacity: 0; }
+    100% { transform: translateY(-115vh) translateX(-20px) rotate(-8deg); opacity: 0; }
   }
 
   .stage {
@@ -342,7 +153,7 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center; text-align: center;
     padding: 4vh 2rem;
-    animation: breathe 14s ease-in-out 3s infinite alternate;
+    animation: breathe 14s ease-in-out 2s infinite alternate;
   }
   @keyframes breathe { 0% { transform: scale(1); } 100% { transform: scale(1.012); } }
 
@@ -350,7 +161,7 @@
     position: relative; width: 104px; height: 104px;
     margin-bottom: 1.2rem;
     opacity: 0;
-    animation: crestIn 1.3s cubic-bezier(0.2, 0.9, 0.3, 1.2) 2.8s forwards;
+    animation: crestIn 1.3s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.6s forwards;
   }
   @keyframes crestIn {
     0%   { opacity: 0; transform: scale(0.4) rotate(-18deg); }
@@ -359,139 +170,107 @@
   .crest .ring {
     position: absolute; inset: -6px;
     border-radius: 50%;
-    border: 1px dashed rgba(201, 169, 97, 0.32);
+    border: 1px dashed rgba(240, 192, 64, 0.32);
     animation: spinSlow 40s linear infinite;
   }
   .crest .ring.inner {
     inset: 2px;
     border-style: solid;
-    border-color: rgba(201, 169, 97, 0.5);
-    box-shadow: 0 0 20px rgba(139, 10, 26, 0.45), inset 0 0 12px rgba(201, 169, 97, 0.18);
+    border-color: rgba(240, 192, 64, 0.5);
+    box-shadow: 0 0 20px rgba(155, 48, 255, 0.35), inset 0 0 12px rgba(240, 192, 64, 0.18);
     animation: none;
   }
   .crest .mark {
     position: absolute; inset: 8px;
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 45%, rgba(255, 240, 196, 0.16), rgba(255, 240, 196, 0.04) 60%, transparent 75%);
+    background: radial-gradient(circle at 50% 45%, rgba(240, 192, 64, 0.16), rgba(240, 192, 64, 0.04) 60%, transparent 75%);
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
   .crest .mark img {
     width: 100%; height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 0 12px rgba(232, 201, 135, 0.35));
+    filter: drop-shadow(0 0 12px rgba(240, 192, 64, 0.35));
   }
   @keyframes spinSlow { to { transform: rotate(360deg); } }
 
   .eyebrow {
     font-weight: 400; font-size: 0.78rem;
     letter-spacing: 0.5em; text-transform: uppercase;
-    color: var(--candle); margin: 0;
+    color: var(--gold); margin: 0;
     opacity: 0; transform: translateY(20px);
-    animation: rise 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) 3.1s forwards;
-    text-shadow: 0 0 12px rgba(201, 169, 97, 0.4);
+    animation: rise 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) 0.9s forwards;
+    text-shadow: 0 0 12px rgba(240, 192, 64, 0.4);
   }
 
   .ornament {
     display: flex; align-items: center; gap: 14px;
     margin: 1.6rem auto 0.5rem;
-    opacity: 0; animation: fadeIn 0.9s ease 3.3s forwards;
-    color: var(--candle);
+    opacity: 0; animation: fadeIn 0.9s ease 1.1s forwards;
+    color: var(--gold);
   }
   .ornament .line {
     width: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--candle), transparent);
-    animation: drawLine 1.1s ease 3.4s forwards;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: drawLine 1.1s ease 1.2s forwards;
   }
-  .ornament .dagger-mark {
+  .ornament .star-mark {
     display: inline-block;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.1rem;
-    color: var(--candle-bright);
-    transform: rotate(180deg) scale(0);
-    text-shadow: 0 0 14px var(--candle), 0 0 28px var(--blood-bright);
-    animation: daggerIn 0.9s cubic-bezier(0.34, 1.8, 0.64, 1) 3.7s forwards,
-               daggerPulse 3.2s ease-in-out 4.8s infinite;
+    font-size: 1.3rem;
+    color: var(--gold-bright);
+    transform: scale(0);
+    text-shadow: 0 0 14px var(--gold), 0 0 28px var(--accent);
+    animation: starIn 0.9s cubic-bezier(0.34, 1.8, 0.64, 1) 1.5s forwards,
+               starPulse 3.2s ease-in-out 2.6s infinite;
   }
   @keyframes drawLine { to { width: 90px; } }
-  @keyframes daggerIn { to { transform: rotate(180deg) scale(1); } }
-  @keyframes daggerPulse {
-    0%, 100% { text-shadow: 0 0 14px var(--candle), 0 0 28px var(--blood-bright); }
-    50%      { text-shadow: 0 0 22px var(--candle-bright), 0 0 48px var(--blood); }
-  }
-
-  .title-pre {
-    font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(1.05rem, 3.4vw, 1.5rem);
-    color: var(--bone);
-    letter-spacing: 0.06em;
-    margin: 0.6rem 0 0;
-    opacity: 0; transform: translateY(20px);
-    animation: rise 1.1s cubic-bezier(0.2, 0.9, 0.3, 1) 3.7s forwards;
+  @keyframes starIn { to { transform: scale(1); } }
+  @keyframes starPulse {
+    0%, 100% { text-shadow: 0 0 14px var(--gold), 0 0 28px var(--accent); }
+    50%      { text-shadow: 0 0 22px var(--gold-bright), 0 0 48px var(--accent-bright); }
   }
 
   h1 {
     font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-    font-weight: 600;
+    font-weight: 700;
     font-style: italic;
-    font-size: clamp(3.2rem, 14vw, 6.4rem);
+    font-size: clamp(2.8rem, 12vw, 5.6rem);
     line-height: 1.0; letter-spacing: 0.01em;
     margin: 0.2rem 0 0.4rem; padding: 0 0.4rem;
     background: linear-gradient(110deg,
-      var(--candle-soft) 0%, var(--candle-bright) 22%, var(--candle-white) 48%,
-      var(--candle-bright) 75%, var(--candle-soft) 100%);
+      var(--gold-soft) 0%, var(--gold-bright) 22%, var(--gold-white) 48%,
+      var(--gold-bright) 75%, var(--gold-soft) 100%);
     background-size: 250% 100%;
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 28px rgba(184, 36, 47, 0.45));
+    filter: drop-shadow(0 0 28px rgba(155, 48, 255, 0.45));
     opacity: 0;
     transform: scale(1.25);
-    animation: titleImpact 1.5s cubic-bezier(0.2, 0.9, 0.2, 1) 4.4s forwards,
-               shimmer 5s ease-in-out 6.0s infinite;
+    animation: titleImpact 1.5s cubic-bezier(0.2, 0.9, 0.2, 1) 1.8s forwards,
+               shimmer 5s ease-in-out 3.4s infinite;
   }
   @keyframes titleImpact {
-    0%   { opacity: 0; transform: scale(1.25); filter: drop-shadow(0 0 28px rgba(184, 36, 47, 0)) blur(18px); }
-    55%  { opacity: 1; transform: scale(0.97); filter: drop-shadow(0 0 36px rgba(184, 36, 47, 0.6)) blur(0); }
-    100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 28px rgba(184, 36, 47, 0.45)) blur(0); }
+    0%   { opacity: 0; transform: scale(1.25); filter: drop-shadow(0 0 28px rgba(155, 48, 255, 0)) blur(18px); }
+    55%  { opacity: 1; transform: scale(0.97); filter: drop-shadow(0 0 36px rgba(155, 48, 255, 0.6)) blur(0); }
+    100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 28px rgba(155, 48, 255, 0.45)) blur(0); }
   }
   @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-  .adaptation {
+  .subtitle {
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
-    color: var(--candle-soft);
-    letter-spacing: 0.05em;
-    margin: 0.7rem 0 0;
-    opacity: 0;
-    animation: fadeIn 1.0s ease 4.9s forwards;
-  }
-  /* Programme-header variant — slightly more subdued, no entrance delay */
-  .programme-adaptation {
-    color: rgba(212, 197, 160, 0.7);
-    margin: 0.5rem 0 0;
-    font-size: clamp(0.86rem, 2.2vw, 0.98rem);
-    opacity: 1;
-    animation: none;
-  }
-
-  .title-quote {
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic; font-weight: 400;
     font-size: clamp(0.95rem, 2.6vw, 1.15rem);
-    color: rgba(212, 197, 160, 0.78);
+    color: rgba(216, 208, 232, 0.78);
     letter-spacing: 0.04em;
     margin: 1.2rem 0 0;
-    max-width: 28ch;
+    max-width: 32ch;
     opacity: 0;
-    animation: fadeIn 1.2s ease 5.6s forwards;
+    animation: fadeIn 1.2s ease 2.6s forwards;
   }
-  .title-quote::before, .title-quote::after {
-    content: "—";
-    color: var(--candle);
+  .subtitle::before, .subtitle::after {
+    content: "\2014";
+    color: var(--gold);
     margin: 0 0.6rem;
     font-style: normal;
     opacity: 0.7;
@@ -500,25 +279,25 @@
   .year {
     font-family: "Cormorant Garamond", serif; font-weight: 500;
     font-size: clamp(1.0rem, 3.2vw, 1.35rem);
-    color: var(--candle-bright);
+    color: var(--gold-bright);
     letter-spacing: 0.5em;
     margin: 1.6rem 0 0; padding-left: 0.5em;
     opacity: 0;
-    animation: fadeIn 1.0s ease 6.0s forwards;
-    text-shadow: 0 0 14px rgba(201, 169, 97, 0.55);
+    animation: fadeIn 1.0s ease 3.0s forwards;
+    text-shadow: 0 0 14px rgba(240, 192, 64, 0.55);
   }
 
   .scroll-cue {
     margin-top: 2.4rem;
     display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-    color: var(--candle-soft);
+    color: var(--gold-soft);
     font-size: 0.74rem; letter-spacing: 0.34em; text-transform: uppercase;
     opacity: 0;
-    animation: fadeIn 0.8s ease 6.4s forwards;
+    animation: fadeIn 0.8s ease 3.4s forwards;
   }
   .scroll-cue .mouse {
     width: 22px; height: 36px;
-    border: 1.5px solid var(--candle-soft);
+    border: 1.5px solid var(--gold-soft);
     border-radius: 12px;
     position: relative;
   }
@@ -526,7 +305,7 @@
     content: ""; position: absolute;
     top: 7px; left: 50%; transform: translateX(-50%);
     width: 3px; height: 7px; border-radius: 2px;
-    background: var(--candle-soft);
+    background: var(--gold-soft);
     animation: wheel 1.6s ease-in-out infinite;
   }
   @keyframes wheel {
@@ -539,26 +318,26 @@
     position: absolute; top: max(1.2rem, env(safe-area-inset-top));
     right: max(1.2rem, env(safe-area-inset-right));
     z-index: 9;
-    appearance: none; border: 1px solid rgba(201, 169, 97, 0.4);
-    background: rgba(10, 7, 8, 0.6);
+    appearance: none; border: 1px solid rgba(240, 192, 64, 0.4);
+    background: rgba(8, 6, 26, 0.6);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    color: var(--candle-soft);
+    color: var(--gold-soft);
     font-family: "Inter", sans-serif;
     font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
     padding: 0.55rem 1rem; border-radius: 999px;
     cursor: pointer; transition: all 0.25s ease;
     opacity: 0;
-    animation: fadeIn 0.7s ease 1.6s forwards;
+    animation: fadeIn 0.7s ease 0.8s forwards;
   }
   .skip:hover, .skip:focus-visible {
-    color: var(--candle-bright); border-color: var(--candle-bright);
-    box-shadow: 0 0 18px rgba(184, 36, 47, 0.4); outline: none;
+    color: var(--gold-bright); border-color: var(--gold-bright);
+    box-shadow: 0 0 18px rgba(155, 48, 255, 0.4); outline: none;
   }
 
   @keyframes rise   { to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { to { opacity: 1; } }
 
-  /* ── Programme view ─────────────────────────────────────── */
+  /* ---- Programme view ---- */
   #programme {
     position: relative; z-index: 4;
     min-height: 100vh;
@@ -576,15 +355,15 @@
   }
   .programme-header .eyebrow-small {
     font-size: 0.7rem; letter-spacing: 0.5em;
-    color: var(--candle); text-transform: uppercase;
+    color: var(--gold); text-transform: uppercase;
     margin: 0 0 0.7rem;
   }
   .programme-header h2 {
     font-family: "Cormorant Garamond", serif;
-    font-weight: 500; font-style: italic;
+    font-weight: 600; font-style: italic;
     font-size: clamp(1.8rem, 7vw, 2.8rem);
     margin: 0;
-    background: linear-gradient(110deg, var(--candle-soft), var(--candle-bright), var(--candle-soft));
+    background: linear-gradient(110deg, var(--gold-soft), var(--gold-bright), var(--gold-soft));
     background-size: 200% 100%;
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -592,13 +371,13 @@
     line-height: 1.1;
   }
   .programme-header .sub {
-    color: rgba(212, 197, 160, 0.55);
+    color: rgba(216, 208, 232, 0.55);
     font-size: 0.78rem; letter-spacing: 0.32em; text-transform: uppercase;
     margin: 1rem 0 0;
     font-style: normal;
   }
   .programme-header .quote {
-    color: rgba(212, 197, 160, 0.68);
+    color: rgba(216, 208, 232, 0.68);
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
     font-size: 0.98rem;
@@ -608,7 +387,7 @@
   .programme-header .divider {
     width: 110px; height: 1px;
     margin: 1.6rem auto 0;
-    background: linear-gradient(90deg, transparent, var(--candle), transparent);
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
 
   .cast-block {
@@ -623,23 +402,22 @@
     font-weight: 500;
     font-size: clamp(1.55rem, 5.4vw, 2.0rem);
     text-align: center;
-    color: var(--candle-bright);
+    color: var(--gold-bright);
     margin: 0 0 1.8rem;
     letter-spacing: 0.04em;
-    text-shadow: 0 0 18px rgba(184, 36, 47, 0.25);
+    text-shadow: 0 0 18px rgba(155, 48, 255, 0.25);
     display: flex; align-items: center; justify-content: center; gap: 0.9rem;
   }
   .section-title .flank {
     display: inline-block;
     height: 1px; width: clamp(28px, 8vw, 70px);
-    background: linear-gradient(90deg, transparent, var(--candle), transparent);
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
     opacity: 0.6;
   }
   .section-title .glyph {
-    color: var(--candle);
+    color: var(--gold);
     font-size: 0.7em;
     opacity: 0.85;
-    transform: translateY(-0.08em) rotate(180deg);
     display: inline-block;
   }
 
@@ -647,14 +425,14 @@
     list-style: none;
     margin: 0; padding: 0;
     background:
-      linear-gradient(180deg, rgba(40, 22, 26, 0.45), rgba(20, 10, 12, 0.55));
-    border: 1px solid rgba(201, 169, 97, 0.18);
+      linear-gradient(180deg, rgba(20, 14, 50, 0.55), rgba(10, 6, 28, 0.65));
+    border: 1px solid rgba(240, 192, 64, 0.18);
     border-radius: 10px;
     padding: 1.4rem 1.4rem 1.2rem;
     box-shadow:
       0 18px 50px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(184, 36, 47, 0.08) inset,
-      0 0 60px rgba(184, 36, 47, 0.08) inset;
+      0 0 0 1px rgba(155, 48, 255, 0.08) inset,
+      0 0 60px rgba(155, 48, 255, 0.08) inset;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
   }
@@ -670,7 +448,7 @@
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
-    border-bottom: 1px dashed rgba(201, 169, 97, 0.08);
+    border-bottom: 1px dashed rgba(240, 192, 64, 0.08);
   }
   .role:last-child { border-bottom: none; }
   .role.in { opacity: 1; transform: translateY(0); }
@@ -681,24 +459,16 @@
     flex: 0 1 auto;
     white-space: nowrap;
   }
-  .role-name em {
-    font-style: italic;
-    color: var(--candle-soft);
-    font-weight: 400;
-    font-size: 0.9em;
-    margin-left: 0.4em;
-    opacity: 0.8;
-  }
   .dots {
     flex: 1 1 auto;
     min-width: 1.8rem;
-    border-bottom: 1px dotted rgba(212, 197, 160, 0.28);
+    border-bottom: 1px dotted rgba(216, 208, 232, 0.28);
     align-self: center;
     transform: translateY(2px);
     margin: 0 0.15rem;
   }
   .actor-name {
-    color: var(--candle-soft);
+    color: var(--gold-soft);
     font-family: "Inter", sans-serif;
     font-size: clamp(0.85rem, 2.8vw, 0.94rem);
     font-weight: 400;
@@ -708,35 +478,11 @@
     white-space: nowrap;
   }
   .actor-name.placeholder {
-    color: rgba(201, 169, 97, 0.32);
+    color: rgba(240, 192, 64, 0.32);
     font-style: italic;
     letter-spacing: 0.04em;
   }
 
-  /* Subtle italic styling for the witches — they are different */
-  .role.witch .role-name,
-  .role.supernatural .role-name {
-    font-style: italic;
-    color: var(--candle-soft);
-  }
-
-  /* Lead roles — Macbeth & Lady Macbeth carry the play */
-  .role.lead .role-name {
-    font-weight: 600;
-    font-size: 1.08em;
-    color: var(--candle-bright);
-    text-shadow: 0 0 14px rgba(184, 36, 47, 0.25);
-  }
-  .role.lead .actor-name {
-    color: var(--bone);
-    font-weight: 500;
-  }
-  .role.lead {
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-  }
-
-  /* Crew block: allow long, comma-separated name lists to wrap gracefully */
   .cast-list.crew .role { align-items: flex-start; }
   .cast-list.crew .role-name { padding-top: 0.05em; }
   .cast-list.crew .actor-name {
@@ -751,7 +497,6 @@
     .cast-list.crew .role-name { font-size: 0.98rem; }
   }
 
-  /* ── Phone: stack crew rows so multi-name lists get the full width ─ */
   @media (max-width: 540px) {
     .cast-list.crew .role {
       flex-direction: column;
@@ -764,21 +509,11 @@
       font-size: 0.72rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--candle);
+      color: var(--gold);
       font-weight: 500;
       opacity: 0.85;
       padding-top: 0;
       white-space: normal;
-    }
-    .cast-list.crew .role-name em {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      letter-spacing: 0.02em;
-      text-transform: none;
-      color: var(--candle-soft);
-      font-size: 0.95em;
-      opacity: 0.9;
-      margin-left: 0.5em;
     }
     .cast-list.crew .dots { display: none; }
     .cast-list.crew .actor-name {
@@ -791,16 +526,15 @@
     }
   }
 
-  /* Floating nav once programme is up */
   .nav {
     position: fixed; top: max(0.8rem, env(safe-area-inset-top));
     left: 50%; transform: translateX(-50%) translateY(-160%);
     z-index: 20;
     display: flex; gap: 0.6rem; align-items: center;
     padding: 0.5rem 0.75rem 0.5rem 1rem;
-    background: rgba(10, 7, 8, 0.78);
+    background: rgba(8, 6, 26, 0.78);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(201, 169, 97, 0.25);
+    border: 1px solid rgba(240, 192, 64, 0.25);
     border-radius: 999px;
     transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
     max-width: calc(100vw - 1.5rem);
@@ -809,12 +543,12 @@
   .nav .title {
     font-family: "Cormorant Garamond", serif;
     font-style: italic; font-size: 0.92rem;
-    color: var(--candle-soft);
+    color: var(--gold-soft);
     white-space: nowrap;
   }
   .nav .sep {
     width: 1px; height: 14px;
-    background: rgba(201, 169, 97, 0.28);
+    background: rgba(240, 192, 64, 0.28);
     margin: 0 0.15rem;
   }
   .nav-links {
@@ -828,7 +562,7 @@
   .nav-links::-webkit-scrollbar { display: none; }
   .nav-links > a { scroll-snap-align: start; flex: 0 0 auto; }
   .nav a {
-    color: var(--candle-soft);
+    color: var(--gold-soft);
     font-family: "Inter", sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.22em;
@@ -840,8 +574,8 @@
     white-space: nowrap;
   }
   .nav a:hover, .nav a:focus-visible {
-    color: var(--candle-bright);
-    background: rgba(201, 169, 97, 0.08);
+    color: var(--gold-bright);
+    background: rgba(240, 192, 64, 0.08);
     outline: none;
   }
   @media (max-width: 520px) {
@@ -858,528 +592,14 @@
     }
   }
 
-  /* Smooth anchor scrolling, with offset so the nav doesn't cover headings */
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-
-  /* ── Posters: exhibition gallery ─────────────────────────── */
-  #posters { max-width: 1040px; }
-  .poster-intro {
-    text-align: center;
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    color: rgba(212, 197, 160, 0.68);
-    font-size: clamp(0.95rem, 2.6vw, 1.05rem);
-    letter-spacing: 0.02em;
-    max-width: 38ch;
-    margin: -0.6rem auto 2.2rem;
-    line-height: 1.55;
-  }
-  .poster-intro::before, .poster-intro::after {
-    content: "—";
-    color: var(--candle);
-    opacity: 0.55;
-    margin: 0 0.55rem;
-    font-style: normal;
-  }
-
-  /* ── Candles ────────────────────────────────────────────── */
-  .poster-candles {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: clamp(2.4rem, 9vw, 4.2rem);
-    height: 110px;
-    margin: 0 auto 2.4rem;
-    position: relative;
-    pointer-events: none;
-  }
-  .poster-candles::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 35%;
-    width: clamp(220px, 60vw, 420px);
-    height: 140px;
-    transform: translateX(-50%);
-    background: radial-gradient(ellipse at center, rgba(255, 170, 80, 0.16) 0%, rgba(184, 36, 47, 0.08) 35%, transparent 70%);
-    pointer-events: none;
-    z-index: -1;
-    filter: blur(2px);
-  }
-  .candle {
-    position: relative;
-    width: 11px;
-    height: 70px;
-    background:
-      linear-gradient(180deg, #f3e6bf 0%, #ecdba6 55%, #cdb682 100%);
-    border-radius: 3px 3px 1px 1px;
-    box-shadow:
-      inset -2.5px 0 3px rgba(110, 80, 40, 0.45),
-      inset 2px 0 3px rgba(255, 240, 195, 0.4),
-      0 3px 7px rgba(0, 0, 0, 0.55);
-  }
-  /* Wax drip down one side */
-  .candle::after {
-    content: "";
-    position: absolute;
-    top: 16%;
-    left: -2px;
-    width: 3px;
-    height: 38%;
-    background: linear-gradient(180deg, #f0e2b5, #d6c08a);
-    border-radius: 2px 0 4px 4px / 2px 0 6px 6px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-    opacity: 0.85;
-  }
-  /* Wick */
-  .candle .wick {
-    position: absolute;
-    top: -4px; left: 50%;
-    width: 1.4px; height: 5px;
-    background: #1d1108;
-    transform: translateX(-50%);
-    border-radius: 1px;
-  }
-  /* Flame */
-  .flame {
-    position: absolute;
-    top: -26px;
-    left: 50%;
-    width: 13px;
-    height: 26px;
-    background: radial-gradient(ellipse at 50% 72%,
-      #fffae0 0%,
-      #ffe084 25%,
-      #ffa83a 55%,
-      #d84a26 80%,
-      #6a0f1d 100%);
-    border-radius: 50% 50% 32% 32% / 62% 62% 38% 38%;
-    transform-origin: 50% 100%;
-    transform: translateX(-50%);
-    box-shadow:
-      0 0 12px 3px rgba(255, 190, 100, 0.6),
-      0 0 28px 9px rgba(255, 130, 60, 0.42),
-      0 0 60px 18px rgba(184, 36, 47, 0.28),
-      0 0 110px 32px rgba(184, 36, 47, 0.14);
-    animation: flicker 2.4s ease-in-out infinite;
-    will-change: transform, opacity;
-    filter: blur(0.2px);
-  }
-  /* Tiny brighter inner flame */
-  .flame::before {
-    content: "";
-    position: absolute;
-    left: 50%; bottom: 18%;
-    width: 5px; height: 9px;
-    background: radial-gradient(ellipse at center,
-      rgba(255, 255, 230, 0.95) 0%,
-      rgba(255, 220, 140, 0.5) 60%,
-      transparent 100%);
-    border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
-    transform: translateX(-50%);
-    animation: flickerCore 1.7s ease-in-out infinite;
-  }
-  @keyframes flicker {
-    0%, 100% { transform: translateX(-50%) scale(1, 1)        skewX(0deg);   opacity: 1;    }
-    18%      { transform: translateX(-50%) scale(1.05, 0.94)  skewX(2.5deg); opacity: 0.94; }
-    34%      { transform: translateX(-50%) scale(0.94, 1.08)  skewX(-2deg);  opacity: 1;    }
-    52%      { transform: translateX(-50%) scale(1.02, 0.97)  skewX(1deg);   opacity: 0.9;  }
-    70%      { transform: translateX(-50%) scale(0.97, 1.05)  skewX(-2.5deg);opacity: 0.98; }
-    86%      { transform: translateX(-50%) scale(1.03, 0.96)  skewX(1.5deg); opacity: 0.95; }
-  }
-  @keyframes flickerCore {
-    0%, 100% { opacity: 0.9; transform: translateX(-50%) scale(1, 1); }
-    50%      { opacity: 1;   transform: translateX(-50%) scale(0.85, 1.15); }
-  }
-  /* Stagger each flame so they don't tick in unison */
-  .candle:nth-child(1) .flame { animation-delay: -0.4s; animation-duration: 2.2s; }
-  .candle:nth-child(2) .flame { animation-delay: -1.3s; animation-duration: 2.7s; }
-  .candle:nth-child(3) .flame { animation-delay: -0.8s; animation-duration: 2.4s; }
-  .poster-candles .candle:nth-child(2) { height: 86px; }   /* center candle is taller */
-  .poster-candles .candle:nth-child(1),
-  .poster-candles .candle:nth-child(3) { height: 64px; }
-
-  /* Candle size variants */
-  .candle.candle-md { width: 13px; height: 86px; }
-  .candle.candle-md .flame {
-    top: -28px; width: 15px; height: 28px;
-    box-shadow:
-      0 0 14px 4px rgba(255, 190, 100, 0.6),
-      0 0 32px 10px rgba(255, 130, 60, 0.42),
-      0 0 68px 20px rgba(184, 36, 47, 0.28),
-      0 0 130px 36px rgba(184, 36, 47, 0.16);
-  }
-  .candle.candle-sm { width: 8px; height: 44px; }
-  .candle.candle-sm::after { display: none; } /* skip drip on small */
-  .candle.candle-sm .flame {
-    top: -18px; width: 10px; height: 18px;
-    box-shadow:
-      0 0 8px 2px rgba(255, 190, 100, 0.55),
-      0 0 18px 6px rgba(255, 130, 60, 0.36),
-      0 0 38px 12px rgba(184, 36, 47, 0.22);
-  }
-
-  /* Intro candles — flicker at the foot of the stage */
-  .intro-candle {
-    position: absolute;
-    bottom: 11vh;
-    z-index: 3;
-    opacity: 0;
-    animation: fadeIn 2s ease 5.6s forwards;
-    pointer-events: none;
-  }
-  .intro-candle.l { left: 9vw; }
-  .intro-candle.r { right: 9vw; }
-  @media (max-width: 720px) {
-    .intro-candle { bottom: 16vh; }
-    .intro-candle.l { left: 5vw; }
-    .intro-candle.r { right: 5vw; }
-  }
-  @media (max-width: 380px) {
-    .intro-candle { bottom: 19vh; }
-    .intro-candle.l { left: 4vw; }
-    .intro-candle.r { right: 4vw; }
-  }
-
-  /* Programme header altar — candles flanking the divider */
-  .header-altar {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 1.4rem;
-    height: 64px;
-    margin: 1.6rem auto 0;
-  }
-  .header-altar .divider {
-    width: 70px; height: 1px;
-    margin: 0 0 1rem;
-    background: linear-gradient(90deg, transparent, var(--candle), transparent);
-  }
-
-  /* Closing candles — three votives burning low above the quote */
-  .closing-candles {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 1.8rem;
-    height: 58px;
-    margin: 0.4rem auto 1.4rem;
-    pointer-events: none;
-    position: relative;
-  }
-  .closing-candles::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    width: 220px;
-    height: 90px;
-    transform: translateX(-50%);
-    background: radial-gradient(ellipse at center, rgba(255, 170, 80, 0.12) 0%, transparent 70%);
-    filter: blur(2px);
-    pointer-events: none;
-    z-index: -1;
-  }
-  .closing-candles .candle:nth-child(2) { height: 50px; }
-  .closing-candles .candle:nth-child(1),
-  .closing-candles .candle:nth-child(3) { height: 38px; }
-
-  .poster-gallery {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    max-width: 460px;
-    margin: 0 auto;
-    padding: 0 0.2rem;
-  }
-
-  .plate {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    opacity: 0;
-    transform: translateY(28px) scale(0.985);
-    transition: opacity 1.0s cubic-bezier(0.2, 0.9, 0.3, 1),
-                transform 1.0s cubic-bezier(0.2, 0.9, 0.3, 1);
-  }
-  .plate.in { opacity: 1; transform: none; }
-
-  .plate-num {
-    display: block;
-    text-align: center;
-    font-family: "Inter", sans-serif;
-    font-size: 0.66rem;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--candle);
-    opacity: 0.78;
-    margin: 0 0 0.85rem;
-    padding-left: 0.42em;
-  }
-
-  .plate-frame {
-    appearance: none;
-    -webkit-appearance: none;
-    display: block;
-    width: 100%;
-    background: transparent;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    cursor: zoom-in;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    font: inherit;
-    color: inherit;
-  }
-
-  .plate-mat {
-    display: block;
-    aspect-ratio: 1 / 1;
-    background:
-      radial-gradient(ellipse at 30% 20%, #f5ecd2 0%, #ece1c0 55%, #ddcfa6 100%);
-    padding: clamp(0.85rem, 3.6vw, 1.4rem);
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-      inset 0 0 0 1px rgba(80, 55, 25, 0.3),
-      0 0 0 5px #14100c,
-      0 0 0 7px rgba(201, 169, 97, 0.92),
-      0 0 0 8px rgba(0, 0, 0, 0.35),
-      0 18px 38px rgba(0, 0, 0, 0.55),
-      0 0 0 rgba(184, 36, 47, 0);
-    transition: box-shadow 0.55s ease,
-                transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1);
-  }
-  .plate-mat::before {
-    content: "";
-    position: absolute; inset: 0;
-    background-image: radial-gradient(rgba(60, 40, 20, 0.07) 1px, transparent 1px);
-    background-size: 3px 3px;
-    opacity: 0.55;
-    pointer-events: none;
-    mix-blend-mode: multiply;
-  }
-  .plate-mat::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, transparent 60%, rgba(60, 40, 20, 0.18) 100%);
-    pointer-events: none;
-  }
-  .plate-mat img {
-    display: block;
-    width: 100%; height: 100%;
-    object-fit: contain;
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 5px 9px rgba(0, 0, 0, 0.32));
-  }
-
-  @media (hover: hover) {
-    .plate-frame:hover .plate-mat,
-    .plate-frame:focus-visible .plate-mat {
-      transform: translateY(-5px);
-      box-shadow:
-        inset 0 0 0 1px rgba(80, 55, 25, 0.3),
-        0 0 0 5px #14100c,
-        0 0 0 7px rgba(220, 188, 112, 1),
-        0 0 0 8px rgba(0, 0, 0, 0.4),
-        0 30px 60px rgba(0, 0, 0, 0.7),
-        0 0 38px rgba(184, 36, 47, 0.35);
-    }
-    .plate-frame:focus-visible { outline: none; }
-  }
-  .plate-frame:active .plate-mat {
-    transform: translateY(-2px) scale(0.995);
-  }
-
-  .plate-caption {
-    text-align: center;
-    margin: 1.1rem 0 0;
-    display: flex; align-items: center; justify-content: center; gap: 0.85rem;
-    flex-wrap: nowrap;
-  }
-  .plate-caption .flourish {
-    color: var(--candle);
-    opacity: 0.55;
-    font-size: 0.85rem;
-    font-family: "Cormorant Garamond", serif;
-    line-height: 1;
-  }
-  .plate-caption .artist {
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(1.05rem, 3.4vw, 1.25rem);
-    color: var(--candle-bright);
-    letter-spacing: 0.04em;
-    text-shadow: 0 0 14px rgba(201, 169, 97, 0.25);
-  }
-
-  @media (min-width: 760px) {
-    .poster-gallery {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.4rem;
-      max-width: 100%;
-    }
-  }
-
-  /* ── Lightbox ───────────────────────────────────────────── */
-  .lightbox {
-    position: fixed; inset: 0;
-    background: rgba(8, 6, 7, 0.95);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    z-index: 60;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
-    padding: max(1rem, env(safe-area-inset-top))
-             max(1rem, env(safe-area-inset-right))
-             max(1.2rem, env(safe-area-inset-bottom))
-             max(1rem, env(safe-area-inset-left));
-  }
-  .lightbox.show {
-    opacity: 1; visibility: visible;
-    transition: opacity 0.4s ease;
-  }
-  .lightbox-stage {
-    flex: 1; width: 100%; max-width: 1100px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 1.4rem; min-height: 0;
-    position: relative;
-  }
-  .lightbox-image {
-    display: block;
-    max-width: 100%;
-    max-height: calc(100dvh - 180px);
-    width: auto; height: auto;
-    object-fit: contain;
-    background: #f3ead2;
-    box-shadow:
-      0 0 0 5px #14100c,
-      0 0 0 7px rgba(220, 188, 112, 0.95),
-      0 26px 60px rgba(0, 0, 0, 0.75),
-      0 0 50px rgba(184, 36, 47, 0.32);
-    user-select: none; -webkit-user-select: none;
-    touch-action: pan-y pinch-zoom;
-    opacity: 0;
-    transform: scale(0.98);
-    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
-  }
-  .lightbox.show .lightbox-image { opacity: 1; transform: none; }
-
-  .lightbox-meta {
-    text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
-  }
-  .lightbox-plate {
-    font-family: "Inter", sans-serif;
-    font-size: 0.66rem;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--candle);
-    opacity: 0.78;
-    margin: 0;
-    padding-left: 0.42em;
-  }
-  .lightbox-artist {
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    color: var(--candle-bright);
-    font-size: 1.18rem;
-    letter-spacing: 0.04em;
-    margin: 0;
-    text-shadow: 0 0 14px rgba(201, 169, 97, 0.3);
-  }
-
-  .lightbox-btn {
-    appearance: none; -webkit-appearance: none;
-    background: rgba(10, 7, 8, 0.75);
-    border: 1px solid rgba(201, 169, 97, 0.4);
-    color: var(--candle-bright);
-    font-family: "Cormorant Garamond", serif;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-    -webkit-tap-highlight-color: transparent;
-    display: flex; align-items: center; justify-content: center;
-    padding: 0; line-height: 1;
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  }
-  .lightbox-btn:hover, .lightbox-btn:focus-visible {
-    background: rgba(184, 36, 47, 0.22);
-    border-color: var(--candle-bright);
-    outline: none;
-  }
-  .lightbox-btn:active { transform: scale(0.94); }
-
-  .lightbox-close {
-    position: absolute;
-    top: max(0.8rem, env(safe-area-inset-top));
-    right: max(0.8rem, env(safe-area-inset-right));
-    width: 48px; height: 48px;
-    font-size: 1.5rem;
-    z-index: 2;
-  }
-  .lightbox-prev, .lightbox-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 52px; height: 52px;
-    font-size: 1.9rem;
-    z-index: 2;
-  }
-  .lightbox-prev { left: max(0.8rem, env(safe-area-inset-left)); }
-  .lightbox-next { right: max(0.8rem, env(safe-area-inset-right)); }
-
-  .lightbox-counter {
-    position: absolute;
-    top: max(0.8rem, env(safe-area-inset-top));
-    left: max(0.8rem, env(safe-area-inset-left));
-    font-family: "Inter", sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--candle-soft);
-    opacity: 0.7;
-    padding: 0.5rem 0.85rem;
-    background: rgba(10, 7, 8, 0.55);
-    border: 1px solid rgba(201, 169, 97, 0.22);
-    border-radius: 999px;
-    z-index: 2;
-  }
-
-  @media (max-width: 600px) {
-    .lightbox-prev, .lightbox-next {
-      top: auto;
-      bottom: max(1.4rem, env(safe-area-inset-bottom));
-      transform: none;
-      width: 58px; height: 58px;
-      font-size: 2.1rem;
-    }
-    .lightbox-prev { left: max(1rem, env(safe-area-inset-left)); transform: scaleX(1); }
-    .lightbox-next { right: max(1rem, env(safe-area-inset-right)); }
-    .lightbox-image { max-height: calc(100dvh - 220px); }
-    .lightbox-stage { padding-bottom: 4.6rem; gap: 1rem; }
-    .lightbox-counter { font-size: 0.62rem; letter-spacing: 0.26em; padding: 0.4rem 0.7rem; }
-    .lightbox-close { width: 52px; height: 52px; }
-  }
-  @media (max-width: 380px) {
-    .lightbox-image { max-height: calc(100dvh - 240px); }
-  }
-
-  body.lightbox-open { overflow: hidden; }
 
   .closing {
     text-align: center;
     max-width: 640px;
     margin: 1rem auto 0;
     padding: 0 1rem;
-    color: rgba(212, 197, 160, 0.45);
+    color: rgba(216, 208, 232, 0.45);
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
     font-size: 0.92rem;
@@ -1388,8 +608,18 @@
   .closing .rule {
     width: 110px; height: 1px;
     margin: 0 auto 1.4rem;
-    background: linear-gradient(90deg, transparent, var(--candle), transparent);
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
     opacity: 0.5;
+  }
+
+  .placeholder-notice {
+    text-align: center;
+    padding: 3rem 1.4rem;
+    color: rgba(216, 208, 232, 0.35);
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
   }
 
   @media (min-width: 720px) {
@@ -1399,106 +629,67 @@
     .role { padding: 0.65rem 0; }
   }
 
-  /* ── Phone polish: tighter padding, calmer letter-spacing ──────── */
   @media (max-width: 480px) {
-    #programme { padding: 5vh 0.75rem 8vh; }
     .programme-header { margin: 0 auto 2.6rem; }
     .programme-header .eyebrow-small { letter-spacing: 0.32em; font-size: 0.66rem; }
     .programme-header .sub { letter-spacing: 0.22em; font-size: 0.72rem; }
-    .cast-block { margin: 0 auto 2.8rem; }
-    .cast-list { padding: 1.1rem 1rem 0.9rem; border-radius: 8px; }
-    .role { padding: 0.5rem 0; gap: 0.45rem; }
-    .dots { min-width: 1.2rem; margin: 0 0.1rem; }
-    .actor-name { font-size: 0.9rem; letter-spacing: 0.05em; }
-    .section-title { margin-bottom: 1.3rem; }
-    .closing { margin-top: 0; padding: 0 0.75rem; font-size: 0.88rem; }
-  }
-  /* Very narrow (≤380px): one more notch tighter */
-  @media (max-width: 380px) {
-    .role-name { font-size: 0.96rem; }
-    .actor-name { font-size: 0.86rem; }
-    .cast-list { padding: 0.95rem 0.85rem 0.8rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before { animation-duration: 0.01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; }
-    h1, .year, .crest, .eyebrow, .title-pre, .title-quote { opacity: 1; transform: none; }
-    .curtain, .flash, .storm, .rays, .letterbox, .grain, .embers, .stars, .sparkles, #fireworks, .fog { display: none; }
-    .role { opacity: 1; transform: none; }
-    .plate { opacity: 1; transform: none; transition: none; }
-    .flame, .flame::before { animation: none !important; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    h1, .year, .crest, .eyebrow, .subtitle { opacity: 1; transform: none; }
   }
 
-  /* ── Print: a clean, ink-friendly programme ─────────────── */
   @media print {
-    html, body { background: #fff !important; color: #111 !important; }
-    .backdrop, .rays, .vignette, .storm, .fog, .grain, #fireworks,
-    .stars, .embers, .sparkles, .curtain, .flash, .letterbox,
     #intro, .nav, .skip, .scroll-cue { display: none !important; }
-    body.intro-active { overflow: visible !important; height: auto !important; }
-    #programme { opacity: 1 !important; padding: 0 !important; }
+    .backdrop, .vignette, .grain, .spotlight, .glow-floor { display: none !important; }
+    body { background: #fff; color: #111; }
     .programme-header h2 {
-      -webkit-text-fill-color: initial; color: #111;
-      background: none; filter: none;
+      -webkit-text-fill-color: #111; background: none;
     }
     .programme-header .eyebrow-small,
     .programme-header .sub,
     .programme-header .quote,
-    .closing { color: #444 !important; }
-    .section-title { color: #222 !important; text-shadow: none !important; }
-    .section-title .flank { background: #888 !important; }
-    .cast-list {
-      background: none !important; border: 1px solid #ccc !important;
-      box-shadow: none !important; backdrop-filter: none !important;
-      page-break-inside: avoid;
-    }
-    .role { opacity: 1 !important; transform: none !important;
-            border-bottom-color: #ddd !important;
-            page-break-inside: avoid; }
-    .role-name, .actor-name { color: #111 !important; }
-    .role-name em { color: #555 !important; }
-    .dots { border-bottom-color: #999 !important; }
-    .role.lead .role-name { color: #000 !important; text-shadow: none !important; }
-    .role.witch .role-name, .role.supernatural .role-name { color: #333 !important; }
-    .closing .rule, .programme-header .divider {
-      background: #aaa !important;
-    }
-    .cast-block { margin-bottom: 1.4rem !important; }
-    #posters { display: none !important; }
-    .intro-candle, .header-altar, .closing-candles, .poster-candles { display: none !important; }
-    @page { margin: 18mm; }
+    .section-title { color: #333; text-shadow: none; }
+    .cast-list { border-color: #ccc; background: none; box-shadow: none; backdrop-filter: none; }
+    .role { opacity: 1; transform: none; }
+    .role-name { color: #111; }
+    .actor-name { color: #333; }
+    .dots { border-color: #bbb; }
+    .closing .rule, .programme-header .divider { background: #ccc; }
+    #programme { opacity: 1; padding-top: 2rem; }
+  }
+
+  .intro-spotlight {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 60%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 40% 80% at 50% 100%, rgba(155, 48, 255, 0.12), transparent 70%),
+      radial-gradient(ellipse 30% 60% at 30% 100%, rgba(61, 232, 200, 0.06), transparent 60%),
+      radial-gradient(ellipse 30% 60% at 70% 100%, rgba(240, 192, 64, 0.08), transparent 60%);
+    opacity: 0;
+    animation: fadeIn 2s ease 1.6s forwards;
   }
 </style>
 </head>
 <body class="intro-active">
 
 <div class="backdrop"></div>
-<div class="rays"></div>
+<div class="spotlight"></div>
 <div class="vignette"></div>
-<div class="storm"></div>
-<div class="fog"></div>
+<div class="glow-floor"></div>
 
-<!-- ── INTRO ─────────────────────────────────────────────── -->
 <div id="intro">
-  <div class="stars" id="stars"></div>
-  <div class="embers" id="embers"></div>
-  <canvas id="fireworks"></canvas>
-  <div class="sparkles" id="sparkles"></div>
-
-  <div class="curtain left"></div>
-  <div class="curtain right"></div>
-  <div class="flash"></div>
-
-  <div class="letterbox top"></div>
-  <div class="letterbox bottom"></div>
-
-  <div class="stab-dagger" aria-hidden="true">
-    <div class="blade"></div>
-    <div class="guard"></div>
-    <div class="hilt"></div>
-    <div class="pommel"></div>
-  </div>
-  <div class="blood-splatter" aria-hidden="true"></div>
+  <div class="stars-container" id="stars"></div>
+  <div class="confetti-container" id="notes"></div>
+  <canvas id="confetti-canvas"></canvas>
+  <div class="intro-spotlight"></div>
 
   <button class="skip" id="skip" type="button">Skip Intro</button>
 
@@ -1511,217 +702,83 @@
     <p class="eyebrow">The British School presents</p>
     <div class="ornament">
       <span class="line"></span>
-      <span class="dagger-mark">&#8224;</span>
+      <span class="star-mark">&#9733;</span>
       <span class="line"></span>
     </div>
-    <p class="title-pre">The Tragedy of</p>
-    <h1>Macbeth</h1>
-    <p class="adaptation">Adaptation by Jaspreet Walia</p>
-    <p class="title-quote">Something wicked this way comes</p>
+    <h1>TBS Got Talent</h1>
+    <p class="subtitle">Where every star gets their spotlight</p>
     <p class="year">MMXXVI</p>
     <div class="scroll-cue">
-      <span>Enter the heath</span>
+      <span>Take your seat</span>
       <span class="mouse" aria-hidden="true"></span>
     </div>
-    <span class="intro-candle l" aria-hidden="true">
-      <span class="candle candle-md"><span class="wick"></span><span class="flame"></span></span>
-    </span>
-    <span class="intro-candle r" aria-hidden="true">
-      <span class="candle candle-md"><span class="wick"></span><span class="flame"></span></span>
-    </span>
   </main>
 </div>
 
-<!-- ── PROGRAMME ─────────────────────────────────────────── -->
 <nav class="nav" id="nav" aria-label="Programme sections">
-  <span class="title">Macbeth · MMXXVI</span>
+  <span class="title">TBS Got Talent · MMXXVI</span>
   <span class="sep" aria-hidden="true"></span>
   <div class="nav-links">
-    <a href="#cast">Cast</a>
+    <a href="#performers">Performers</a>
     <a href="#crew">Backstage</a>
     <a href="#faculty">Faculty</a>
-    <a href="#posters">Posters</a>
   </div>
 </nav>
 
-<section id="programme" aria-label="Cast and Production">
+<section id="programme" aria-label="Show Programme">
   <header class="programme-header">
     <p class="eyebrow-small">The British School presents</p>
-    <h2>The Tragedy of Macbeth</h2>
-    <p class="sub">By William Shakespeare</p>
-    <p class="adaptation programme-adaptation">Adaptation by Jaspreet Walia</p>
-    <p class="quote">"Fair is foul, and foul is fair"</p>
-    <div class="header-altar" aria-hidden="true">
-      <span class="candle candle-sm"><span class="wick"></span><span class="flame"></span></span>
-      <div class="divider"></div>
-      <span class="candle candle-sm"><span class="wick"></span><span class="flame"></span></span>
-    </div>
+    <h2>TBS Got Talent</h2>
+    <p class="sub">The Talent Show</p>
+    <p class="quote">"Every artist was first an amateur"</p>
+    <div class="divider"></div>
   </header>
 
-  <div class="cast-block" id="cast">
+  <div class="cast-block" id="performers">
     <h3 class="section-title">
       <span class="flank"></span>
-      <span>Dramatis Personae</span>
-      <span class="glyph">&#8224;</span>
+      <span>Performers</span>
+      <span class="glyph">&#9733;</span>
       <span class="flank"></span>
     </h3>
-    <ul class="cast-list" id="cast-list">
-      <li class="role lead"><span class="role-name">Macbeth</span><span class="dots"></span><span class="actor-name">Kanav Vig</span></li>
-      <li class="role lead"><span class="role-name">Lady Macbeth</span><span class="dots"></span><span class="actor-name">Shivranjini Chaturvedi</span></li>
-      <li class="role"><span class="role-name">King Duncan</span><span class="dots"></span><span class="actor-name">Eunyul Ko</span></li>
-      <li class="role"><span class="role-name">Malcolm</span><span class="dots"></span><span class="actor-name">Adhiraaj Mittal</span></li>
-      <li class="role"><span class="role-name">Donalbain</span><span class="dots"></span><span class="actor-name">Zorawar Guri</span></li>
-      <li class="role"><span class="role-name">Banquo</span><span class="dots"></span><span class="actor-name">Vihaan Nagpal</span></li>
-      <li class="role"><span class="role-name">Fleance <em>&amp; Doctor</em></span><span class="dots"></span><span class="actor-name">Avish Juneja</span></li>
-      <li class="role"><span class="role-name">Macduff</span><span class="dots"></span><span class="actor-name">Arnav Jain</span></li>
-      <li class="role"><span class="role-name">Lady Macduff</span><span class="dots"></span><span class="actor-name">Mischa Nanki Singh</span></li>
-      <li class="role"><span class="role-name">Macduff's Son</span><span class="dots"></span><span class="actor-name">Abir Rudra</span></li>
-      <li class="role"><span class="role-name">Ross</span><span class="dots"></span><span class="actor-name">Ayaan Jain</span></li>
-      <li class="role"><span class="role-name">Lennox</span><span class="dots"></span><span class="actor-name">Kian Bhasin</span></li>
-      <li class="role"><span class="role-name">Captain, Menteith, Angus &amp; Seyton</span><span class="dots"></span><span class="actor-name">Kayaan Goel</span></li>
-      <li class="role"><span class="role-name">Old Man &amp; Siward</span><span class="dots"></span><span class="actor-name">Raaghav Manu Kumar</span></li>
-      <li class="role"><span class="role-name">Young Siward</span><span class="dots"></span><span class="actor-name">Yohaan Israni</span></li>
-      <li class="role"><span class="role-name">Gentlewoman</span><span class="dots"></span><span class="actor-name">Rehnuma Ramchandani</span></li>
-      <li class="role"><span class="role-name">First Murderer</span><span class="dots"></span><span class="actor-name">Jai Vardhan</span></li>
-      <li class="role"><span class="role-name">Second Murderer</span><span class="dots"></span><span class="actor-name">Ruveer Behl</span></li>
-      <li class="role supernatural"><span class="role-name">Hecate</span><span class="dots"></span><span class="actor-name">Amvi Tripathi</span></li>
-      <li class="role witch"><span class="role-name">First Witch</span><span class="dots"></span><span class="actor-name">Meher Balsara</span></li>
-      <li class="role witch"><span class="role-name">Second Witch</span><span class="dots"></span><span class="actor-name">Meher Aalia</span></li>
-      <li class="role witch"><span class="role-name">Third Witch</span><span class="dots"></span><span class="actor-name">Mirabelle Wadhwani</span></li>
-      <li class="role supernatural"><span class="role-name">First Apparition</span><span class="dots"></span><span class="actor-name">Aarna Batra</span></li>
-      <li class="role supernatural"><span class="role-name">Second Apparition</span><span class="dots"></span><span class="actor-name">Amani Prasad</span></li>
-      <li class="role supernatural"><span class="role-name">Third Apparition</span><span class="dots"></span><span class="actor-name">Ariana Burman</span></li>
-      <li class="role"><span class="role-name">Messenger <em>Act III</em></span><span class="dots"></span><span class="actor-name">Sahira Bhagchandka</span></li>
-      <li class="role"><span class="role-name">Messenger <em>Act V</em></span><span class="dots"></span><span class="actor-name">India Karan Vadehra</span></li>
-      <li class="role"><span class="role-name">Servant <em>Act III</em></span><span class="dots"></span><span class="actor-name">Cyra Malik</span></li>
-      <li class="role"><span class="role-name">Attendant &amp; Servant</span><span class="dots"></span><span class="actor-name">Saranya Agarwal</span></li>
-      <li class="role"><span class="role-name">Hera</span><span class="dots"></span><span class="actor-name">Samaira Wadhwa</span></li>
-    </ul>
+    <div class="placeholder-notice">Coming soon &mdash; the lineup is being finalised</div>
   </div>
 
   <div class="cast-block" id="crew">
     <h3 class="section-title">
       <span class="flank"></span>
       <span>Backstage</span>
-      <span class="glyph">&#8224;</span>
+      <span class="glyph">&#9733;</span>
       <span class="flank"></span>
     </h3>
-    <ul class="cast-list crew" id="crew-list">
-      <li class="role"><span class="role-name">Master of Ceremonies</span><span class="dots"></span><span class="actor-name">Jackson Sonny Robin Barrett, Yurim Choi</span></li>
-      <li class="role"><span class="role-name">Backstage — Stage Left</span><span class="dots"></span><span class="actor-name">Amrita Ushnisha Tarr Advani, Jackson Sonny Robin Barrett, Minki Cho, Lehzareen Rana</span></li>
-      <li class="role"><span class="role-name">Backstage — Stage Right</span><span class="dots"></span><span class="actor-name">Yurim Choi, Young Hee Cha, Ryann Issar</span></li>
-      <li class="role"><span class="role-name">Backstage — Wings</span><span class="dots"></span><span class="actor-name">Myrrah Malhotra</span></li>
-      <li class="role"><span class="role-name">Props</span><span class="dots"></span><span class="actor-name">Amrita Ushnisha Tarr Advani, Zunairah Hasan, Sara Kar, Inayat Sood</span></li>
-      <li class="role"><span class="role-name">Costume</span><span class="dots"></span><span class="actor-name">Amrita Ushnisha Tarr Advani, Samara Mehra, Raha Chawla Sahni, Vanya Crystal Sharma</span></li>
-      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Witches</em></span><span class="dots"></span><span class="actor-name">Divisha Gupta, Amira Mohamed</span></li>
-      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Boys</em></span><span class="dots"></span><span class="actor-name">Cherisha Agrawal, Kyra Datta, Natasha Nath, Ananya Parshotam</span></li>
-      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Ghosts</em></span><span class="dots"></span><span class="actor-name">Cherisha Agrawal, Ananya Parshotam, Vanya Crystal Sharma</span></li>
-      <li class="role"><span class="role-name">Hair &amp; Makeup <em>Girls</em></span><span class="dots"></span><span class="actor-name">Aliana Maria Hassan, Adyashree Kathuria, Samara Mehra, Natasha Nath, Raha Chawla Sahni</span></li>
-      <li class="role"><span class="role-name">Programme Design</span><span class="dots"></span><span class="actor-name">Reyansh Gupta</span></li>
-      <li class="role"><span class="role-name">Poster Design</span><span class="dots"></span><span class="actor-name">Yurim Choi, Cherisha Agarwal, Inayat Sood</span></li>
-    </ul>
+    <div class="placeholder-notice">Coming soon</div>
   </div>
 
   <div class="cast-block" id="faculty">
     <h3 class="section-title">
       <span class="flank"></span>
       <span>Faculty</span>
-      <span class="glyph">&#8224;</span>
+      <span class="glyph">&#9733;</span>
       <span class="flank"></span>
     </h3>
     <ul class="cast-list crew" id="faculty-list">
-      <li class="role"><span class="role-name">Drama</span><span class="dots"></span><span class="actor-name">Jaspreet Walia, Aditee Biswas, Harshita Guha</span></li>
-      <li class="role"><span class="role-name">Art</span><span class="dots"></span><span class="actor-name">Kristine Michael</span></li>
-      <li class="role"><span class="role-name">Lights &amp; Sound Design</span><span class="dots"></span><span class="actor-name">Adarsh Mishra, Manish Haldar</span></li>
+      <li class="role"><span class="role-name">Lights &amp; Sound Design</span><span class="dots"></span><span class="actor-name">Adarsh Mishra</span></li>
+      <li class="role"><span class="role-name">Faculty</span><span class="dots"></span><span class="actor-name">Ashwati Parameshwar</span></li>
+      <li class="role"><span class="role-name">Faculty</span><span class="dots"></span><span class="actor-name">Nilima Harin Buch</span></li>
+      <li class="role"><span class="role-name">Faculty</span><span class="dots"></span><span class="actor-name">Vishal Mehta</span></li>
+      <li class="role"><span class="role-name">Faculty</span><span class="dots"></span><span class="actor-name">Svetlana Radashkevich</span></li>
     </ul>
-  </div>
-
-  <div class="cast-block" id="posters">
-    <h3 class="section-title">
-      <span class="flank"></span>
-      <span>Posters</span>
-      <span class="glyph">&#8224;</span>
-      <span class="flank"></span>
-    </h3>
-    <p class="poster-intro">Three students, three visions of the same haunted heath</p>
-    <div class="poster-candles" aria-hidden="true">
-      <span class="candle"><span class="wick"></span><span class="flame"></span></span>
-      <span class="candle"><span class="wick"></span><span class="flame"></span></span>
-      <span class="candle"><span class="wick"></span><span class="flame"></span></span>
-    </div>
-    <div class="poster-gallery">
-      <figure class="plate">
-        <span class="plate-num">Plate I</span>
-        <button class="plate-frame" type="button" data-index="0" aria-label="View poster by Yurim Choi full size">
-          <span class="plate-mat">
-            <img src="/posters/yurim-choi.png" alt="Macbeth poster artwork by Yurim Choi — a lady in mourning before a serpent" loading="lazy" decoding="async">
-          </span>
-        </button>
-        <figcaption class="plate-caption">
-          <span class="flourish" aria-hidden="true">&#8224;</span>
-          <span class="artist">Yurim Choi</span>
-          <span class="flourish" aria-hidden="true">&#8224;</span>
-        </figcaption>
-      </figure>
-      <figure class="plate">
-        <span class="plate-num">Plate II</span>
-        <button class="plate-frame" type="button" data-index="1" aria-label="View poster by Cherisha Agarwal full size">
-          <span class="plate-mat">
-            <img src="/posters/cherisha-agarwal.png" alt="Macbeth poster artwork by Cherisha Agarwal — a cauldron and castle wreathed in vines" loading="lazy" decoding="async">
-          </span>
-        </button>
-        <figcaption class="plate-caption">
-          <span class="flourish" aria-hidden="true">&#8224;</span>
-          <span class="artist">Cherisha Agarwal</span>
-          <span class="flourish" aria-hidden="true">&#8224;</span>
-        </figcaption>
-      </figure>
-      <figure class="plate">
-        <span class="plate-num">Plate III</span>
-        <button class="plate-frame" type="button" data-index="2" aria-label="View poster by Inayat Sood full size">
-          <span class="plate-mat">
-            <img src="/posters/inayat-sood.png" alt="Macbeth poster artwork by Inayat Sood — twin crowns and a bloodied dagger" loading="lazy" decoding="async">
-          </span>
-        </button>
-        <figcaption class="plate-caption">
-          <span class="flourish" aria-hidden="true">&#8224;</span>
-          <span class="artist">Inayat Sood</span>
-          <span class="flourish" aria-hidden="true">&#8224;</span>
-        </figcaption>
-      </figure>
-    </div>
   </div>
 
   <div class="closing">
     <div class="rule"></div>
-    <div class="closing-candles" aria-hidden="true">
-      <span class="candle candle-sm"><span class="wick"></span><span class="flame"></span></span>
-      <span class="candle candle-sm"><span class="wick"></span><span class="flame"></span></span>
-      <span class="candle candle-sm"><span class="wick"></span><span class="flame"></span></span>
-    </div>
-    <p>"By the pricking of my thumbs, something wicked this way comes."</p>
+    <p>"The stage is set &mdash; the stars are ready."</p>
   </div>
 </section>
 
 <div class="grain"></div>
 
-<!-- ── POSTER LIGHTBOX ─────────────────────────────────────── -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Poster gallery viewer">
-  <span class="lightbox-counter" id="lightbox-counter">Plate I of III</span>
-  <button class="lightbox-btn lightbox-close" type="button" aria-label="Close gallery">&times;</button>
-  <button class="lightbox-btn lightbox-prev" type="button" aria-label="Previous poster">&#8249;</button>
-  <button class="lightbox-btn lightbox-next" type="button" aria-label="Next poster">&#8250;</button>
-  <div class="lightbox-stage">
-    <img class="lightbox-image" id="lightbox-image" alt="" />
-    <div class="lightbox-meta">
-      <p class="lightbox-plate" id="lightbox-plate">Plate I</p>
-      <p class="lightbox-artist" id="lightbox-artist">Yurim Choi</p>
-    </div>
-  </div>
-</div>
-
 <script>
-  /* ── Stars ────────────────────────────────────────────────── */
   (function () {
     var c = document.getElementById("stars");
     var n = window.innerWidth < 600 ? 35 : 55;
@@ -1738,14 +795,14 @@
     }
   })();
 
-  /* ── Drifting daggers (rare, atmospheric) ─────────────────── */
   (function () {
-    var c = document.getElementById("embers");
+    var c = document.getElementById("notes");
+    var symbols = ["♪", "♫", "★", "☆", "✨"];
     var n = window.innerWidth < 600 ? 6 : 9;
     for (var i = 0; i < n; i++) {
       var d = document.createElement("div");
-      d.className = "dagger";
-      d.textContent = "†";
+      d.className = "float-note";
+      d.textContent = symbols[Math.floor(Math.random() * symbols.length)];
       d.style.left = Math.random() * 100 + "%";
       d.style.fontSize = (16 + Math.random() * 24) + "px";
       d.style.animationDelay = (Math.random() * 22) + "s";
@@ -1754,27 +811,7 @@
     }
   })();
 
-  /* ── Sparkle burst ────────────────────────────────────────── */
-  function burstSparkles(x, y, count) {
-    var c = document.getElementById("sparkles");
-    for (var i = 0; i < count; i++) {
-      var s = document.createElement("div");
-      s.className = "sparkle";
-      var angle = Math.random() * Math.PI * 2;
-      var dist  = 60 + Math.random() * 160;
-      var dist2 = dist + 50 + Math.random() * 110;
-      s.style.left = x + "px"; s.style.top = y + "px";
-      s.style.setProperty("--dx",  Math.cos(angle) * dist  + "px");
-      s.style.setProperty("--dy",  Math.sin(angle) * dist  + "px");
-      s.style.setProperty("--dx2", Math.cos(angle) * dist2 + "px");
-      s.style.setProperty("--dy2", Math.sin(angle) * dist2 + "px");
-      c.appendChild(s);
-      setTimeout(function (el) { return function () { el.remove(); }; }(s), 2100);
-    }
-  }
-
-  /* ── Canvas embers ────────────────────────────────────────── */
-  var fwCanvas = document.getElementById("fireworks");
+  var fwCanvas = document.getElementById("confetti-canvas");
   var fwCtx = fwCanvas.getContext("2d");
   var particles = [];
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1788,10 +825,10 @@
   sizeFw();
   window.addEventListener("resize", sizeFw);
 
-  var EMBER_COLORS = ["#ffb066", "#ff7e3d", "#d4a857", "#e85d2e", "#c9a961", "#b8242f"];
-  function emberColor() { return EMBER_COLORS[Math.floor(Math.random() * EMBER_COLORS.length)]; }
+  var COLORS = ["#ffd666", "#ff6b6b", "#9b30ff", "#3de8c8", "#f0c040", "#c66dff", "#ff9f43"];
+  function pickColor() { return COLORS[Math.floor(Math.random() * COLORS.length)]; }
 
-  function spawnEmber(opts) {
+  function spawnParticle(opts) {
     opts = opts || {};
     var x = opts.x != null ? opts.x : Math.random() * window.innerWidth;
     var y = opts.y != null ? opts.y : window.innerHeight + 8;
@@ -1802,7 +839,7 @@
       life: 1,
       decay: 0.0025 + Math.random() * 0.004,
       size: 0.7 + Math.random() * 1.4,
-      color: emberColor(),
+      color: pickColor(),
       flicker: 0.55 + Math.random() * 0.4,
       phase: Math.random() * Math.PI * 2,
       isEmber: true
@@ -1821,7 +858,7 @@
         vy: Math.sin(angle) * speed - 0.6,
         life: 1, decay: 0.014 + Math.random() * 0.014,
         size: 1.4 + Math.random() * 1.6,
-        color: emberColor(),
+        color: pickColor(),
         flicker: 1
       });
     }
@@ -1864,14 +901,12 @@
     requestAnimationFrame(loop);
   })();
 
-  /* Continuous ember rain along the bottom of the stage */
   setInterval(function () {
     if (document.hidden) return;
     var n = window.innerWidth < 600 ? 1 : 2;
-    for (var i = 0; i < n; i++) spawnEmber();
+    for (var i = 0; i < n; i++) spawnParticle();
   }, 260);
 
-  /* ── Choreography ─────────────────────────────────────────── */
   function safeRect(sel) {
     var el = document.querySelector(sel);
     if (!el) return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -1879,18 +914,17 @@
     return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
   }
   window.addEventListener("load", function () {
-    // Sparkle burst as the title "Macbeth" lands
-    setTimeout(function () { burstSparkles(safeRect("h1").x, safeRect("h1").y, 40); }, 4900);
-    // Ember bursts radiating from the title
-    setTimeout(function () { var p = safeRect("h1"); burst(p.x - 60, p.y, { count: 40 }); }, 4950);
-    setTimeout(function () { var p = safeRect("h1"); burst(p.x + 60, p.y, { count: 40 }); }, 5100);
-    // Pre-fill some embers so the screen feels alive
+    setTimeout(function () {
+      var p = safeRect("h1");
+      burst(p.x, p.y, { count: 60 });
+    }, 2300);
+    setTimeout(function () { var p = safeRect("h1"); burst(p.x - 60, p.y, { count: 40 }); }, 2400);
+    setTimeout(function () { var p = safeRect("h1"); burst(p.x + 60, p.y, { count: 40 }); }, 2500);
     for (var i = 0; i < 24; i++) {
-      setTimeout(function () { spawnEmber(); }, 2800 + i * 90);
+      setTimeout(function () { spawnParticle(); }, 1400 + i * 90);
     }
   });
 
-  /* ── Transition from intro to programme ──────────────────── */
   var intro = document.getElementById("intro");
   var nav = document.getElementById("nav");
 
@@ -1902,7 +936,6 @@
     document.getElementById("programme").classList.add("show");
     setTimeout(function () { nav.classList.add("show"); }, 700);
 
-    // Stagger-reveal each cast role on entry
     var roles = document.querySelectorAll(".role");
     var io = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (e) {
@@ -1918,16 +951,13 @@
     roles.forEach(function (r) { io.observe(r); });
   }
 
-  // Auto-transition after intro plays
-  var autoTimer = setTimeout(enterProgramme, 8800);
+  var autoTimer = setTimeout(enterProgramme, 5800);
 
-  // Skip button
   document.getElementById("skip").addEventListener("click", function () {
     clearTimeout(autoTimer);
     enterProgramme();
   });
 
-  // Scroll / touch / key also dismisses intro
   function earlyEnter() {
     clearTimeout(autoTimer);
     enterProgramme();
@@ -1937,127 +967,6 @@
   window.addEventListener("keydown",   function (e) {
     if (["ArrowDown", "PageDown", " ", "Enter", "Escape"].indexOf(e.key) >= 0) earlyEnter();
   });
-
-  /* ── Poster gallery: reveal + lightbox ────────────────────── */
-  (function () {
-    var frames = [].slice.call(document.querySelectorAll(".plate-frame"));
-    if (!frames.length) return;
-
-    var lightbox = document.getElementById("lightbox");
-    var lbImage  = document.getElementById("lightbox-image");
-    var lbPlate  = document.getElementById("lightbox-plate");
-    var lbArtist = document.getElementById("lightbox-artist");
-    var lbCount  = document.getElementById("lightbox-counter");
-    var lbClose  = lightbox.querySelector(".lightbox-close");
-    var lbPrev   = lightbox.querySelector(".lightbox-prev");
-    var lbNext   = lightbox.querySelector(".lightbox-next");
-
-    var roman = ["I", "II", "III", "IV", "V"];
-    var posters = frames.map(function (btn) {
-      var img    = btn.querySelector("img");
-      var figure = btn.closest(".plate");
-      var artist = figure.querySelector(".artist").textContent.trim();
-      var plate  = figure.querySelector(".plate-num").textContent.trim();
-      return { src: img.src, alt: img.alt, artist: artist, plate: plate };
-    });
-
-    var current = 0;
-    var lastFocus = null;
-
-    function render(idx) {
-      current = (idx + posters.length) % posters.length;
-      var p = posters[current];
-      lbImage.src = p.src;
-      lbImage.alt = p.alt;
-      lbArtist.textContent = p.artist;
-      lbPlate.textContent  = p.plate;
-      lbCount.textContent  = p.plate + " of " + roman[posters.length - 1];
-    }
-
-    function open(idx) {
-      lastFocus = document.activeElement;
-      render(idx);
-      lightbox.classList.add("show");
-      lightbox.setAttribute("aria-hidden", "false");
-      document.body.classList.add("lightbox-open");
-      // Defer focus so transition can start
-      setTimeout(function () { lbClose.focus(); }, 60);
-    }
-
-    function close() {
-      lightbox.classList.remove("show");
-      lightbox.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("lightbox-open");
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
-    }
-
-    frames.forEach(function (btn, i) {
-      btn.addEventListener("click", function () { open(i); });
-    });
-    lbClose.addEventListener("click", close);
-    lbPrev .addEventListener("click", function () { render(current - 1); });
-    lbNext .addEventListener("click", function () { render(current + 1); });
-
-    lightbox.addEventListener("click", function (e) {
-      // close when clicking backdrop or stage area, but not image/buttons/meta
-      if (e.target === lightbox || e.target.classList.contains("lightbox-stage")) close();
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (!lightbox.classList.contains("show")) return;
-      if (e.key === "Escape") { e.preventDefault(); close(); }
-      else if (e.key === "ArrowLeft")  { e.preventDefault(); render(current - 1); }
-      else if (e.key === "ArrowRight") { e.preventDefault(); render(current + 1); }
-      else if (e.key === "Tab") {
-        // simple focus trap between the four controls
-        var focusables = [lbClose, lbPrev, lbNext];
-        var idx = focusables.indexOf(document.activeElement);
-        if (idx === -1) { e.preventDefault(); focusables[0].focus(); return; }
-        var next = e.shiftKey ? (idx - 1 + focusables.length) % focusables.length
-                              : (idx + 1) % focusables.length;
-        e.preventDefault();
-        focusables[next].focus();
-      }
-    });
-
-    // Touch swipe
-    var sx = 0, sy = 0, swiping = false;
-    lightbox.addEventListener("touchstart", function (e) {
-      if (!lightbox.classList.contains("show")) return;
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
-      swiping = true;
-    }, { passive: true });
-    lightbox.addEventListener("touchend", function (e) {
-      if (!swiping) return;
-      swiping = false;
-      var t = e.changedTouches[0];
-      var dx = t.clientX - sx;
-      var dy = t.clientY - sy;
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-        if (dx > 0) render(current - 1);
-        else        render(current + 1);
-      }
-    }, { passive: true });
-
-    // Reveal plates on scroll
-    var plates = document.querySelectorAll(".plate");
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries, obs) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            var idx = [].indexOf.call(entry.target.parentElement.children, entry.target);
-            entry.target.style.transitionDelay = (Math.min(idx, 6) * 0.14) + "s";
-            entry.target.classList.add("in");
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
-      plates.forEach(function (p) { io.observe(p); });
-    } else {
-      plates.forEach(function (p) { p.classList.add("in"); });
-    }
-  })();
 </script>
 
 </body>
